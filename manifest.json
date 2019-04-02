@@ -1,0 +1,37 @@
+﻿{
+  "manifest_version":       2,
+  "default_locale":         "en",
+  "minimum_chrome_version": "72",
+  "version":                "0.0.1",
+  "name":                   "__MSG_name__",
+  "description":            "__MSG_description__",
+  
+  "icons": {
+    "32":   "images/icons/icon-32.png",
+    "48":   "images/icons/icon-48.png",
+    "64":   "images/icons/icon-64.png",
+    "128":  "images/icons/icon-128.png",
+    "256":  "images/icons/icon-256.png",
+    "512":  "images/icons/icon-512.png",
+    "1024": "images/icons/icon-1024.png"
+  },
+
+  "web_accessible_resources": [
+    "images/*",
+    "popup/*"
+  ],
+  
+  "browser_action": {
+    "default_popup": "popup/index.html",
+    "default_icon":  "images/icons/icon-32.png",
+    "default_title": "__MSG_browserActionTitle__"
+  },
+  
+  "permissions": [
+    "https://graphigo.prd.dlive.tv/*",
+    "cookies",
+    "contextMenus",
+    "notifications",
+    "unlimitedStorage"
+  ]
+}

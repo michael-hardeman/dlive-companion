@@ -1,0 +1,17 @@
+{
+  "name":{
+    "message"    : "DLive Guide",
+    "description": "Title of the browser extension"
+  },
+
+  "description":{
+    "message"    : "Get all a list of live streams that you follow!",
+    "description": "Description of the browser extension"
+  },
+  
+  "browserActionTitle": {
+    "message"    : "DLive Guide",
+    "description": "Popup mouse over text"
+  }
+
+}
