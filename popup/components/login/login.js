@@ -1,6 +1,7 @@
 import m from '../../node_modules/mithril/mithril.mjs';
-import Controller from '../Controller.js';
 import FetchQL from '../../node_modules/fetchql/lib/fetchql.es.js';
+import Component from '../component.js';
+import UserSearchResults from '../user-search-results/user-search-results.js';
 
 const DLIVE_URL_ENDPOINT = 'https://graphigo.prd.dlive.tv/';
 const DLIVE_QUERY = `
@@ -22,26 +23,18 @@ query SearchPage($text: String!, $first: Int, $after: String) {
 }`;
 
 let displayname = '';
-let users = [];
 let first = 5;
 let after = '';
+let searchData = null;
 
-class LoginController extends Controller {
-
-  get displayname () { return displayname; }
-  get users() { return users; }
-
-  selectUser (displayname) {
-    localStorage.setItem('displayname', displayname);
-    m.route.set('/followed');
-  }
+class Login extends Component {
 
   buildDliveQuery () {
     return new FetchQL ({url: DLIVE_URL_ENDPOINT });
   }
 
   onUsersSearched (response) {
-    users = response.data.search.users.list;
+    searchData = response;
     m.redraw ();
   }
 
@@ -64,6 +57,37 @@ class LoginController extends Controller {
     displayname = input.value;
     this.searchUsers (displayname).then (this.onUsersSearched);
   }
+
+  computeSearchbarIconClass (searchData, displayName) {
+    if (displayName && !searchData) { return 'form-icon loading'; }
+    return 'form-icon icon icon-search';
+  }
+
+  maybeDisplayResults (searchData) {
+    if (!searchData) { return null; }
+    return m (new UserSearchResults (searchData));
+  }
+
+  view (vnode) {
+    return m ('popup-login', {class: 'relative form-group'}, [
+      m ('label', {class: 'form-label', for:'display-name'}),
+      m ('div', {class: 'has-icon-right'}, [
+        m ('input', {
+          id: 'display-name',
+          class: 'form-input',
+          type: 'text',
+          placeholder: 'Display Name',
+          value: this.displayname,
+          autofocus: true
+        }),
+        m ('i', {
+          class: this.computeSearchbarIconClass (searchData, displayname),
+          onclick: this.search.bind (this, vnode)
+        })
+      ]),
+      this.maybeDisplayResults (searchData)
+    ]);
+  }
 }
 
-export default LoginController;
+export default Login;

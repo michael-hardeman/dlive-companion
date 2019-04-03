@@ -1,4 +1,4 @@
 import m from '../node_modules/mithril/mithril.mjs';
-import PopupComponent from './popup/PopupComponent.js';
+import Popup from './popup/popup.js';
 
-m.mount(document.body, new PopupComponent());
+m.mount (document.body, new Popup ());
