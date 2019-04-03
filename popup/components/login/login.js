@@ -58,19 +58,18 @@ class Login extends Component {
     this.searchUsers (displayname).then (this.onUsersSearched);
   }
 
-  computeSearchbarIconClass (searchData, displayName) {
+  computeSearchIconClass (searchData, displayName) {
     if (displayName && !searchData) { return 'form-icon loading'; }
     return 'form-icon icon icon-search';
   }
 
-  maybeDisplayResults (searchData) {
+  maybeDisplaySearchResults (searchData) {
     if (!searchData) { return null; }
     return m (new UserSearchResults (searchData));
   }
 
   view (vnode) {
     return m ('popup-login', {class: 'relative form-group'}, [
-      m ('label', {class: 'form-label', for:'display-name'}),
       m ('div', {class: 'has-icon-right'}, [
         m ('input', {
           id: 'display-name',
@@ -81,11 +80,11 @@ class Login extends Component {
           autofocus: true
         }),
         m ('i', {
-          class: this.computeSearchbarIconClass (searchData, displayname),
+          class: this.computeSearchIconClass (searchData, displayname),
           onclick: this.search.bind (this, vnode)
         })
       ]),
-      this.maybeDisplayResults (searchData)
+      this.maybeDisplaySearchResults (searchData)
     ]);
   }
 }
