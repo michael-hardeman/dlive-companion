@@ -5,7 +5,7 @@ import Body from '../body/body.js';
 
 class Popup extends Component {
   view () {
-    return m ('popup', {class: 'relative'}, [
+    return m ('popup', {class: 'relative container'}, [
       m (new Heading ()),
       m (new Body ())
     ]);

@@ -23,15 +23,17 @@ class UserSearchResults extends Component {
     ];
   }
 
+  selectUser(user) {}
+
   userList (users) {
     return users.map ((user) => {
       return m ('user', {
         class: 'tile tile-centered', 
-        key: user.id
-//        onclick: this.selectUser.bind (this, user.displayname)
+        key: user.id,
+        onclick: this.selectUser.bind (this, user)
       }, [
         m ('div', {class: 'tile-icon'}, [
-          m ('img', {class: 'icon centered', src: user.avatar}, [])
+          m ('img', {class: 'avatar centered', src: user.avatar}, [])
         ]),
         m ('div', {class: 'tile-content'}, [
           m ('div', {class: 'tile-title'}, user.displayname),
@@ -44,8 +46,13 @@ class UserSearchResults extends Component {
     });
   }
 
+  maybeShowUserList (users) {
+    if (!users.length) { return this.emptyState(); }
+    return this.userList (users);
+  }
+
   view () {
-    return m ('user-search-results', {class: 'relative'}, users.length ? this.userList (users) : this.emptyState ());
+    return m ('user-search-results', this.maybeShowUserList(users));
   }
 }
 

@@ -3,10 +3,12 @@ import Component from '../component.js';
 
 class Heading extends Component {
   view () {
-    return m ('popup-heading', {class: 'relative container'}, [
-      m ('div', {class: 'columns col-oneline'}, [
-        m ('img', {src: '/images/icons/icon-32.png'}),
-        m ('h4', {class: 'col-auto title'}, 'DLive Guide')
+    return m ('popup-heading', {class: 'columns'}, [
+      m ('div', {class: 'column col-3'}, [
+        m ('img', {class: 'logo centered', src: '/images/icons/icon-48.png'})
+      ]),
+      m ('div', {class: 'column col-mx-auto'}, [
+        m ('h4', {class: 'title flex-centered'}, 'DLive Guide')
       ])
     ]);
   }
