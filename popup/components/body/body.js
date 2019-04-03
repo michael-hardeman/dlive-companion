@@ -5,7 +5,7 @@ import Followed from '../followed/followed.js';
 
 class Body extends Component {
   computeDefaultRoute () {
-    if (localStorage.getItem ('displayname')) {
+    if (localStorage.getItem ('user')) {
       return '/followed';
     }
     return '/login';
