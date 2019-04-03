@@ -9,9 +9,7 @@ class Followed extends Component {
 
   view () {
     return m ('popup-followed', {class: 'relative'}, [
-      m ('button', {class: 'btn btn-primary', onclick: this.clearLocalStorage.bind (this) }, [
-        m ('i', {class: 'icon icon-cross'}, [])
-      ])
+      m ('h4', 'FOLLOWED')
     ]);
   }
 }

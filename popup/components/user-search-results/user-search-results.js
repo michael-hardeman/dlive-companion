@@ -1,4 +1,4 @@
-import { m } from '../../node_modules/mithril/mithril.mjs';
+import m from '../../node_modules/mithril/mithril.mjs';
 import Component from '../component.js';
 
 let users = [];
@@ -23,7 +23,10 @@ class UserSearchResults extends Component {
     ];
   }
 
-  selectUser(user) {}
+  selectUser(user) {
+    localStorage.setItem('user', JSON.stringify (user));
+    m.route.set ('/followed');
+  }
 
   userList (users) {
     return users.map ((user) => {
