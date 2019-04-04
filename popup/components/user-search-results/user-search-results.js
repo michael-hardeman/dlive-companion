@@ -24,7 +24,8 @@ class UserSearchResults extends Component {
   }
 
   selectUser(user) {
-    localStorage.setItem('user', JSON.stringify (user));
+    localStorage.setItem('displayname', JSON.stringify (user.displayname));
+    document.dispatchEvent (new Event ('refresh-user'));
     m.route.set ('/followed');
   }
 
@@ -55,7 +56,10 @@ class UserSearchResults extends Component {
   }
 
   view () {
-    return m ('user-search-results', this.maybeShowUserList(users));
+    return m ('user-search-results', [
+      this.maybeShowUserList(users);
+      this.maybeShowPagination()
+    ]);
   }
 }
 

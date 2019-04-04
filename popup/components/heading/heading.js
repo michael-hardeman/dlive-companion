@@ -21,6 +21,7 @@ class Heading extends Component {
   logout () {
     localStorage.clear ();
     if ('/login' === m.route.get()) { return; }
+    shouldShowDropdown = false;
     m.route.set ('/login');
   }
 
