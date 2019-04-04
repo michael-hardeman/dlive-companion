@@ -4,10 +4,14 @@ import Component from '../component.js';
 import UserSearchResults from '../user-search-results/user-search-results.js';
 
 const DLIVE_URL_ENDPOINT = 'https://graphigo.prd.dlive.tv/';
-const DLIVE_QUERY = `
+const DLIVE_SEARCH_QUERY = `
 query SearchPage($text: String!, $first: Int, $after: String) {
   search(text: $text) {
     users(first: $first, after: $after) {
+      pageInfo: {
+        endCursor
+        hasNextPage"
+      },
       list {
         displayname
         avatar
@@ -23,7 +27,7 @@ query SearchPage($text: String!, $first: Int, $after: String) {
 }`;
 
 let displayname = '';
-let first = 5;
+let first = 10;
 let after = '';
 let searchData = null;
 
@@ -38,7 +42,7 @@ class Login extends Component {
     m.redraw ();
   }
 
-  searchUsers (displayname) {
+  buildQuerySearchUsers (displayname) {
     if (!displayname) { return; }
     return this.buildDliveQuery ().query ({
       operationName: 'SearchPage',
@@ -47,7 +51,7 @@ class Login extends Component {
         first: first,
         after: after
       },
-      query: DLIVE_QUERY
+      query: DLIVE_SEARCH_QUERY
     });
   }
   
@@ -55,7 +59,7 @@ class Login extends Component {
     if (!vnode) { return; }
     let input = vnode.dom.querySelector ('#display-name');
     displayname = input.value;
-    this.searchUsers (displayname).then (this.onUsersSearched);
+    this.buildQuerySearchUsers (displayname).then (this.onUsersSearched);
   }
 
   computeSearchIconClass (searchData, displayName) {

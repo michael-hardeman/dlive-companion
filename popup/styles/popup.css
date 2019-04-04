@@ -5,12 +5,21 @@
 
 .container {
   width: 300px;
+  max-height: 600px;
   padding: 4px 8px;
 }
 
 popup-heading .logo {
   width: 48px;
   height: 48px;
+}
+
+popup-heading .title {
+  margin-top: 10px;
+}
+
+popup-heading .heading {
+  overflow-y: hidden;
 }
 
 user-search-results .avatar {
