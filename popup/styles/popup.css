@@ -1,9 +1,0 @@
-.relative { 
-  display: block; 
-  position: relative;
-}
-
-body { 
-  padding: 4px 8px;
-  min-width: 250px;
-}
