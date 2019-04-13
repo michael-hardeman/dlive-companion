@@ -1,28 +1,30 @@
-import m from '../../node_modules/mithril/mithril.mjs';
-import Component from '../component.js';
+import m from '../node_modules/mithril/mithril.mjs';
+import * as Constants from '../constants.js';
+import Component from './component.js';
+
+const USER_MENU_DOM_ID = 'user-menu';
 
 let user;
 let shouldShowDropdown;
 
-class Heading extends Component {
+class PopupHeading extends Component {
 
   constructor () {
     super ();
-    user = JSON.parse (localStorage.getItem ('user'));
+    user = JSON.parse (localStorage.getItem (Constants.USER_STORAGE_KEY));
   }
 
   oncreate (vnode) {
-    let dropdown = vnode.dom.querySelector ('#user-menu');
-    if (!shouldShowDropdown) { return; }
-    if (!dropdown) { return; }
+    let dropdown = vnode.dom.querySelector ('#' + USER_MENU_DOM_ID);
+    if (!dropdown || !shouldShowDropdown) { return; }
     dropdown.focus ();
   }
 
   logout () {
     localStorage.clear ();
-    if ('/login' === m.route.get()) { return; }
+    if (Constants.LOGIN_ROUTE === m.route.get ()) { return; }
     shouldShowDropdown = false;
-    m.route.set ('/login');
+    m.route.set (Constants.LOGIN_ROUTE);
   }
 
   showDropdown () {
@@ -33,11 +35,11 @@ class Heading extends Component {
     return m ('div', {class: 'column col-3'}, [
       m ('div', {class: 'dropdown dropdown-right'}, [
         m ('a', {
-          id: 'user-menu',
+          id: USER_MENU_DOM_ID,
           class: 'btn btn-link dropdown-toggle',
           tabindex: 0,
           href: '#',
-          onclick: this.showDropdown.bind(this)
+          onclick: this.showDropdown.bind (this)
         }, [
           m ('img', {class: 'avatar', src: user.avatar}),
           m ('i', {class: 'icon icon-caret'})
@@ -73,4 +75,4 @@ class Heading extends Component {
   }
 }
 
-export default Heading;
+export default PopupHeading;

@@ -1,17 +1,17 @@
-import m from '../../node_modules/mithril/mithril.mjs';
-import FetchQL from '../../node_modules/fetchql/lib/fetchql.es.js';
-import Component from '../component.js';
-import UserSearchResults from '../user-search-results/user-search-results.js';
+import m from '../node_modules/mithril/mithril.mjs';
+import FetchQL from '../node_modules/fetchql/lib/fetchql.es.js';
+import * as Constants from '../constants.js';
+import Component from './component.js';
+import UserSearchResults from './popup-search-results.js';
 
-const DLIVE_URL_ENDPOINT = 'https://graphigo.prd.dlive.tv/';
 const DLIVE_SEARCH_QUERY = `
 query SearchPage($text: String!, $first: Int, $after: String) {
   search(text: $text) {
     users(first: $first, after: $after) {
-      pageInfo: {
+      pageInfo {
         endCursor
-        hasNextPage"
-      },
+        hasNextPage
+      }
       list {
         displayname
         avatar
@@ -31,10 +31,10 @@ let first = 10;
 let after = '';
 let searchData = null;
 
-class Login extends Component {
+class PopupLogin extends Component {
 
   buildDliveQuery () {
-    return new FetchQL ({url: DLIVE_URL_ENDPOINT });
+    return new FetchQL ({url: Constants.DLIVE_BACKEND_URL });
   }
 
   onUsersSearched (response) {
@@ -93,4 +93,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default PopupLogin;

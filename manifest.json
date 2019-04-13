@@ -18,13 +18,18 @@
 
   "web_accessible_resources": [
     "images/*",
-    "popup/*"
+    "src/*"
   ],
   
   "browser_action": {
-    "default_popup": "popup/index.html",
+    "default_popup": "src/popup.html",
     "default_icon":  "images/icons/icon-32.png",
     "default_title": "__MSG_browserActionTitle__"
+  },
+
+  "background": {
+    "persistent": false,
+    "page": "src/background.html"
   },
   
   "permissions": [

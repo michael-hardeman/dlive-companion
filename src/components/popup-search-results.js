@@ -1,9 +1,10 @@
-import m from '../../node_modules/mithril/mithril.mjs';
-import Component from '../component.js';
+import m from '../node_modules/mithril/mithril.mjs';
+import * as Constants from '../constants.js';
+import Component from './component.js';
 
 let users = [];
 
-class UserSearchResults extends Component {
+class PopupSearchResults extends Component {
 
   constructor (response) {
     super ();
@@ -24,9 +25,8 @@ class UserSearchResults extends Component {
   }
 
   selectUser(user) {
-    localStorage.setItem('displayname', JSON.stringify (user.displayname));
-    document.dispatchEvent (new Event ('refresh-user'));
-    m.route.set ('/followed');
+    localStorage.setItem (Constants.DISPLAYNAME_STORAGE_KEY, JSON.stringify (user.displayname));
+    m.route.set (Constants.STREAMS_ROUTE);
   }
 
   userList (users) {
@@ -51,16 +51,20 @@ class UserSearchResults extends Component {
   }
 
   maybeShowUserList (users) {
-    if (!users.length) { return this.emptyState(); }
+    if (!users.length) { return this.emptyState (); }
     return this.userList (users);
   }
 
+  maybeShowPagination () {
+    return null;
+  }
+
   view () {
-    return m ('user-search-results', [
-      this.maybeShowUserList(users);
+    return m ('popup-search-results', [
+      this.maybeShowUserList(users),
       this.maybeShowPagination()
     ]);
   }
 }
 
-export default UserSearchResults;
+export default PopupSearchResults;
