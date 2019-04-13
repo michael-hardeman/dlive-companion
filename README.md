@@ -7,8 +7,20 @@ A chrome extension that shows all live streams of the people you follow. Written
 
 I will add a build, but currently this requires nodejs to install the dependencies
 
-    cd popup
+    cd src
     npm install
+
+### Contributing
+
+This project will use [git flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+
+The basic flow is to branch off develop to a new feature branch:
+
+    git checkout develop
+    git pull
+    git checkout -b feature/my-cool-new-feature
+
+implement your cool new feature, committing as you go. Then push your new branch to origin. Then simply open a pull request back into develop. 
 
 ### Installation
 
