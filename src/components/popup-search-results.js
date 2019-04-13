@@ -1,6 +1,7 @@
 import m from '../node_modules/mithril/mithril.mjs';
 import * as Constants from '../constants.js';
 import Component from './component.js';
+import * as Messages from '../models/messages.js';
 
 let users = [];
 
@@ -25,7 +26,10 @@ class PopupSearchResults extends Component {
   }
 
   selectUser(user) {
-    localStorage.setItem (Constants.DISPLAYNAME_STORAGE_KEY, JSON.stringify (user.displayname));
+    localStorage.setItem (Constants.DISPLAYNAME_STORAGE_KEY, user.displayname);
+    chrome.runtime.sendMessage(new Messages.UpdateUserInfo(user.displayname), (response) => {
+      console.log(response);
+    });
     m.route.set (Constants.STREAMS_ROUTE);
   }
 

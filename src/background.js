@@ -77,10 +77,6 @@ function buildDliveQuery () {
   return new FetchQL ({url: Constants.DLIVE_BACKEND_URL });
 }
 
-function updateDisplayName (message) {
-  return Promise.resolve(localStorage.setItem(Constants.DISPLAYNAME_STORAGE_KEY, message.body));
-}
-
 function extractFollowing (response) {
   let user = JSON.parse (localStorage.getItem (Constants.USER_STORAGE_KEY));
   if (!user) { return Promise.reject (user); }
@@ -134,19 +130,18 @@ function getUserByDisplayName (displayname) {
 }
 
 function updateUserInfo () {
-  return Promise.resolve(localStorage.getItem('displayname')).then (getUserByDisplayName);
+  return Promise.resolve(localStorage.getItem(Constants.DISPLAYNAME_STORAGE_KEY)).then (getUserByDisplayName);
 }
 
-function updateLiveStrems (message) {
-  return Promise.reject ('unimplemented feature: ' + message.kind);
+function updateLiveStrems () {
+  return Promise.reject ('unimplemented feature');
 }
 
 chrome.runtime.onMessage.addListener(function(message, sender, reply) {
   switch (message.kind) {
-    case 'UPDATE_DISPLAYNAME': return updateDisplayName(message).then(reply);
-    case 'UPDATE_USER_INFO': return updateUserInfo(message).then(reply);
-    case 'UPDATE_LIVE_STREAMS': return updateLiveStrems(message).then(reply);
-    default: return;
+    case Constants.MESSAGE_KIND.UPDATE_USER_INFO: return updateUserInfo().then(reply);
+    case Constants.MESSAGE_KIND.UPDATE_LIVE_STREAMS: return updateLiveStrems().then(reply);
+    default: new Error ('Unknown Message Kind: ' + message.kind);
   }
 });
 
