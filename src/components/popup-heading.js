@@ -65,7 +65,9 @@ class PopupHeading extends Component {
   view () {
     return m ('popup-heading', {class: 'columns'}, [
       m ('div', {class: 'column col-3'}, [
-        m ('img', {class: 'logo centered', src: '/images/icons/icon-48.png'})
+        m ('a', {href: Constants.ABOUT_ROUTE, oncreate: m.route.link, onupdate: m.route.link}, [
+          m ('img', {class: 'logo centered', src: '/images/icons/icon-48.png'})
+        ])
       ]),
       m ('div', {class: 'column col-mx-auto'}, [
         m ('h4', {class: 'title'}, 'DLive Guide')

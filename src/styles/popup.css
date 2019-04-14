@@ -34,3 +34,7 @@ user-search-results user {
 user-search-results user:hover {
   background: rgba(0,0,0,0.2);
 }
+
+.donation-image {
+  width: 200px;
+}
