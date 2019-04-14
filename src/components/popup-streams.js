@@ -31,10 +31,14 @@ class PopupStreams extends Component {
             m ('img', {class: 'thumbnail centered', src: user.livestream.thumbnailUrl}, [])
           ]),
           m ('div', {class: 'tile-content'}, [
-            m ('div', {class: 'tile-title'}, user.displayname),
-            m ('div', {class: 'tile-subtitle text-grey'}, [
+            m ('div', {class: 'tile-title'}, [
+              m ('div', {class: 'stream-user'}, user.displayname),
               m ('i', {class: 'icon icon-people'}),
               m ('small', user.livestream.watchingCount)
+            ]),
+            m ('div', {class: 'tile-subtitle text-grey'}, [
+              m ('div', {class: 'stream-title'}, user.livestream.title),
+              m ('div', {class: 'stream-cateogry'}, user.livestream.category.title)
             ])
           ])
         ])
