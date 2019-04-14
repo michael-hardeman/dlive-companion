@@ -50,7 +50,7 @@ class PopupHeading extends Component {
             class: 'menu-item',
             onclick: this.logout.bind (this)
           }, [
-            m ('p', 'Logout')
+            m ('p', chrome.i18n.getMessage ('logout'))
           ])
         ])
       ])
@@ -70,7 +70,7 @@ class PopupHeading extends Component {
         ])
       ]),
       m ('div', {class: 'column col-mx-auto'}, [
-        m ('h4', {class: 'title'}, 'DLive Guide')
+        m ('h4', {class: 'title'}, chrome.i18n.getMessage('name'))
       ]),
       this.maybeUserDropdown (user)
     ]);

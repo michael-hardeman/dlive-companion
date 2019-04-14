@@ -9,8 +9,8 @@ class PopupStreams extends Component {
         m ('div', {class: 'empty-icon'}, [
           m ('i', {class: 'icon icon-bookmark'})
         ]),
-        m ('p', {class: 'empty-title h5'}, 'No Live Streams'),
-        m ('p', {class: 'empty-subtitle'}, 'Maybe try again later?')
+        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage('streams_empty_title')),
+        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage('streams_empty_subtitle'))
       ])
     ];
   }
