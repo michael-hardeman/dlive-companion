@@ -20,8 +20,7 @@
     "_locales/*",
     "images/*",
     "styles/*",
-    "dist/*",
-    "src/*"
+    "dist/*"
   ],
   
   "browser_action": {
