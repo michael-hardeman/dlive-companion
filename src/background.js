@@ -32,8 +32,12 @@ query LivestreamPage($displayname: String!, $first: Int, $after: String) {
         livestream {
           id
           permlink
+          title
           thumbnailUrl
           watchingCount
+          category {
+            title
+          }
         }
         followers {
           totalCount
@@ -65,8 +69,12 @@ query LivestreamPage($displayname: String!, $first: Int, $after: String) {
         livestream {
           id
           permlink
+          title
           thumbnailUrl
           watchingCount
+          category {
+            title
+          }
         }
         followers {
           totalCount
