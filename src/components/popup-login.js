@@ -81,7 +81,7 @@ class PopupLogin extends Component {
           id: DISPLAYNAME_DOM_ID,
           class: 'form-input',
           type: 'text',
-          placeholder: 'Display Name',
+          placeholder: chrome.i18n.getMessage('login_placeholder'),
           value: this.displayname,
           autofocus: true
         }),

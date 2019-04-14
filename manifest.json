@@ -17,6 +17,7 @@
   },
 
   "web_accessible_resources": [
+    "_locales/*",
     "images/*",
     "dist/*"
   ],
@@ -24,7 +25,7 @@
   "browser_action": {
     "default_popup": "dist/popup.html",
     "default_icon":  "images/icons/icon-32.png",
-    "default_title": "__MSG_browserActionTitle__"
+    "default_title": "__MSG_name__"
   },
 
   "background": {
