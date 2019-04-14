@@ -22,16 +22,29 @@ popup-heading .heading {
   overflow-y: hidden;
 }
 
-user-search-results .avatar {
+popup-search-results .avatar {
   width: 48px;
   height: 48px;
 }
 
-user-search-results user {
+popup-search-results user {
   padding: 4px 8px;
 }
 
-user-search-results user:hover {
+popup-search-results user:hover {
+  background: rgba(0,0,0,0.2);
+}
+
+popup-streams .thumbnail {
+  width: 85px;
+  height: 48px;
+}
+
+popup-streams stream {
+  padding: 4px 8px;
+}
+
+popup-streams stream:hover {
   background: rgba(0,0,0,0.2);
 }
 

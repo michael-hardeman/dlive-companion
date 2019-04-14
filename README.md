@@ -1,5 +1,5 @@
 
-# DLive Now
+# DLive Guide
 
 A chrome extension that shows all live streams of the people you follow. Written in mithril.js
 

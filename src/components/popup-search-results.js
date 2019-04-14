@@ -28,9 +28,9 @@ class PopupSearchResults extends Component {
   selectUser(user) {
     localStorage.setItem (Constants.DISPLAYNAME_STORAGE_KEY, user.displayname);
     chrome.runtime.sendMessage(new Messages.UpdateUserInfo(), (response) => {
+      m.route.set (Constants.STREAMS_ROUTE);
       m.redraw ();
     });
-    m.route.set (Constants.STREAMS_ROUTE);
   }
 
   userList (users) {
