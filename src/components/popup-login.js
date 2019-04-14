@@ -4,6 +4,7 @@ import * as Constants from '../constants.js';
 import Component from './component.js';
 import UserSearchResults from './popup-search-results.js';
 
+const DISPLAYNAME_DOM_ID = 'display-name';
 const DLIVE_SEARCH_QUERY = `
 query SearchPage($text: String!, $first: Int, $after: String) {
   search(text: $text) {
@@ -57,8 +58,9 @@ class PopupLogin extends Component {
   
   search (vnode) {
     if (!vnode) { return; }
-    let input = vnode.dom.querySelector ('#display-name');
+    let input = vnode.dom.querySelector ('#' + DISPLAYNAME_DOM_ID);
     displayname = input.value;
+    if (!displayname) { return; }
     this.buildQuerySearchUsers (displayname).then (this.onUsersSearched);
   }
 
@@ -76,7 +78,7 @@ class PopupLogin extends Component {
     return m ('popup-login', {class: 'relative form-group'}, [
       m ('div', {class: 'has-icon-right'}, [
         m ('input', {
-          id: 'display-name',
+          id: DISPLAYNAME_DOM_ID,
           class: 'form-input',
           type: 'text',
           placeholder: 'Display Name',
