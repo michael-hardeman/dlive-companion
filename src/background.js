@@ -32,6 +32,8 @@ query LivestreamPage($displayname: String!, $first: Int, $after: String) {
         livestream {
           id
           permlink
+          thumbnailUrl
+          watchingCount
         }
         followers {
           totalCount
@@ -63,6 +65,8 @@ query LivestreamPage($displayname: String!, $first: Int, $after: String) {
         livestream {
           id
           permlink
+          thumbnailUrl
+          watchingCount
         }
         followers {
           totalCount
@@ -106,17 +110,16 @@ function maybeFetchAllFollowing (response) {
   fetchAllFollowing (user.displayname, FOLLOWING_PAGE_SIZE, user.following.pageInfo.endCursor);
 }
 
-function updateUserInfo () {
+function updateUserInfo (respond) {
   let displayname = localStorage.getItem(Constants.DISPLAYNAME_STORAGE_KEY);
-  if (!displayname) { throw new Error ('No displayname in storage.'); }
+  if (!displayname) { respond('No displayname in storage.'); return; }
   
   return new Promise((resolve, reject) => {
     buildDliveQuery ().query ({
       operationName: 'LivestreamPage',
       variables: {
         displayname: displayname,
-        first: FOLLOWING_PAGE_SIZE,
-        after: '0'
+        first: FOLLOWING_PAGE_SIZE
       },
       query: DLIVE_GET_USER_QUERY
     }).then((response) => {
@@ -126,19 +129,19 @@ function updateUserInfo () {
       resolve (user);
       maybeFetchAllFollowing(response);
     });
-  });
+  }).finally(respond);
 }
 
-function updateLiveStrems () {
-  return Promise.reject ('unimplemented feature');
+function updateLiveStrems (respond) {
+  respond('unimplemented feature');
 }
 
 // https://developer.chrome.com/extensions/messaging#simple
 // return true allows you to use asynchronicity to respond to the message;
 chrome.runtime.onMessage.addListener(function(message, sender, respond) {
   switch (message.kind) {
-    case Constants.MESSAGE_KIND.UPDATE_USER_INFO: updateUserInfo().then(respond); break;
-    case Constants.MESSAGE_KIND.UPDATE_LIVE_STREAMS: updateLiveStrems().then(respond); break;
+    case Constants.MESSAGE_KIND.UPDATE_USER_INFO: updateUserInfo(respond); break;
+    case Constants.MESSAGE_KIND.UPDATE_LIVE_STREAMS: updateLiveStrems(respond); break;
     default: return false;
   }
 
