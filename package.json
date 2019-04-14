@@ -1,0 +1,20 @@
+{
+  "name": "dlive-guide",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "webpack -p"
+  },
+  "author": "https://github.com/MichaelAllenHardeman",
+  "license": "ISC",
+  "dependencies": {
+    "fetchql": "^3.0.0",
+    "mithril": "^2.0.0-rc.4",
+    "spectre.css": "^0.5.8"
+  },
+  "devDependencies": {
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0"
+  }
+}
