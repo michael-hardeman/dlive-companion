@@ -7,7 +7,7 @@
     "build": "webpack -p"
   },
   "author": "https://github.com/MichaelAllenHardeman",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "fetchql": "^3.0.0",
     "mithril": "^2.0.0-rc.4",
