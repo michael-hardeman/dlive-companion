@@ -84,7 +84,7 @@ function extractFollowing (response) {
   if (!followingInfo) { return Promise.reject (followingInfo); }
   user.following.list = user.following.list.concat (followingInfo.list);
   localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
-  return response;
+  return Promise.resolve (response);
 }
 
 function fetchAllFollowing (displayname, first, after) {
@@ -101,47 +101,47 @@ function fetchAllFollowing (displayname, first, after) {
 
 function maybeFetchAllFollowing (response) {
   let user = response.data.userByDisplayName;
-  if (!user) { return null; }
-  if (!user.following.pageInfo.hasNextPage) { return user; }
-  return fetchAllFollowing (user.displayname, FOLLOWING_PAGE_SIZE, user.following.pageInfo.endCursor);
-}
-
-function onUserRetrieved (response) {
-  let user = response.data.userByDisplayName;
-  if (!user) { return null; }
-  localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
-  return maybeFetchAllFollowing (response); 
-}
-
-function buildQueryGetUserByDisplayName (displayname) {
-  return buildDliveQuery ().query ({
-    operationName: 'LivestreamPage',
-    variables: {
-      displayname: displayname,
-      first: FOLLOWING_PAGE_SIZE,
-      after: '0'
-    },
-    query: DLIVE_GET_USER_QUERY
-  });
-}
-
-function getUserByDisplayName (displayname) {
-  return buildQueryGetUserByDisplayName (displayname).then (onUserRetrieved);
+  if (!user) { return; }
+  if (!user.following.pageInfo.hasNextPage) { return; }
+  fetchAllFollowing (user.displayname, FOLLOWING_PAGE_SIZE, user.following.pageInfo.endCursor);
 }
 
 function updateUserInfo () {
-  return Promise.resolve(localStorage.getItem(Constants.DISPLAYNAME_STORAGE_KEY)).then (getUserByDisplayName);
+  let displayname = localStorage.getItem(Constants.DISPLAYNAME_STORAGE_KEY);
+  if (!displayname) { throw new Error ('No displayname in storage.'); }
+  
+  return new Promise((resolve, reject) => {
+    buildDliveQuery ().query ({
+      operationName: 'LivestreamPage',
+      variables: {
+        displayname: displayname,
+        first: FOLLOWING_PAGE_SIZE,
+        after: '0'
+      },
+      query: DLIVE_GET_USER_QUERY
+    }).then((response) => {
+      let user = response.data.userByDisplayName;
+      if (!user) { return reject ('User could not be fetched'); }
+      localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
+      resolve (user);
+      maybeFetchAllFollowing(response);
+    });
+  });
 }
 
 function updateLiveStrems () {
   return Promise.reject ('unimplemented feature');
 }
 
-chrome.runtime.onMessage.addListener(function(message, sender, reply) {
+// https://developer.chrome.com/extensions/messaging#simple
+// return true allows you to use asynchronicity to respond to the message;
+chrome.runtime.onMessage.addListener(function(message, sender, respond) {
   switch (message.kind) {
-    case Constants.MESSAGE_KIND.UPDATE_USER_INFO: return updateUserInfo().then(reply);
-    case Constants.MESSAGE_KIND.UPDATE_LIVE_STREAMS: return updateLiveStrems().then(reply);
-    default: new Error ('Unknown Message Kind: ' + message.kind);
+    case Constants.MESSAGE_KIND.UPDATE_USER_INFO: updateUserInfo().then(respond); break;
+    case Constants.MESSAGE_KIND.UPDATE_LIVE_STREAMS: updateLiveStrems().then(respond); break;
+    default: return false;
   }
+
+  return true;
 });
 
