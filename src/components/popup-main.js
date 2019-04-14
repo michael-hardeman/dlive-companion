@@ -7,8 +7,8 @@ import * as Messages from '../models/messages.js';
 class PopupMain extends Component {
   constructor () {
     super ();
-    chrome.runtime.sendMessage(new Messages.UpdateUserInfo(), (response) => {
-      console.log(response);
+    chrome.runtime.sendMessage(new Messages.UpdateUserInfo(), () => {
+      m.redraw ();
     });
   }
 

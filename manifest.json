@@ -19,7 +19,9 @@
   "web_accessible_resources": [
     "_locales/*",
     "images/*",
-    "dist/*"
+    "styles/*",
+    "dist/*",
+    "src/*"
   ],
   
   "browser_action": {
@@ -36,8 +38,6 @@
   "permissions": [
     "https://graphigo.prd.dlive.tv/*",
     "cookies",
-    "contextMenus",
-    "notifications",
     "unlimitedStorage"
   ]
 }

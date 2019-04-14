@@ -2,10 +2,7 @@ import m from '../../node_modules/mithril/mithril.mjs';
 import * as Constants from '../constants.js';
 import Component from './component.js';
 
-const USER_MENU_DOM_ID = 'user-menu';
-
 let user;
-let shouldShowDropdown;
 
 class PopupHeading extends Component {
 
@@ -14,32 +11,18 @@ class PopupHeading extends Component {
     user = JSON.parse (localStorage.getItem (Constants.USER_STORAGE_KEY));
   }
 
-  oncreate (vnode) {
-    let dropdown = vnode.dom.querySelector ('#' + USER_MENU_DOM_ID);
-    if (!dropdown || !shouldShowDropdown) { return; }
-    dropdown.focus ();
-  }
-
   logout () {
     localStorage.clear ();
     if (Constants.LOGIN_ROUTE === m.route.get ()) { return; }
-    shouldShowDropdown = false;
     m.route.set (Constants.LOGIN_ROUTE);
-  }
-
-  showDropdown () {
-    shouldShowDropdown = !shouldShowDropdown;
   }
 
   userDropdown (user) {
     return m ('div', {class: 'column col-3'}, [
       m ('div', {class: 'dropdown dropdown-right'}, [
         m ('a', {
-          id: USER_MENU_DOM_ID,
           class: 'btn btn-link dropdown-toggle',
-          tabindex: 0,
-          href: '#',
-          onclick: this.showDropdown.bind (this)
+          tabindex: 0
         }, [
           m ('img', {class: 'avatar', src: user.avatar}),
           m ('i', {class: 'icon icon-caret'})
