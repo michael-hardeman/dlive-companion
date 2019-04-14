@@ -1,17 +1,71 @@
 {
   "name":{
-    "message"    : "DLive Guide",
+    "message": "DLive Guide",
     "description": "Title of the browser extension"
   },
 
   "description":{
-    "message"    : "Get all a list of live streams that you follow!",
+    "message": "Get all a list of live streams that you follow!",
     "description": "Description of the browser extension"
   },
-  
-  "browserActionTitle": {
-    "message"    : "DLive Guide",
-    "description": "Popup mouse over text"
-  }
 
+  "about_description": {
+    "message": "Thanks for using DLive Guide! We work on this in our spare time, so if you want to help us out then consider sending us a donation. We will definitely appreciate it!",
+    "description": "The About page description"
+  },
+
+  "login_placeholder": {
+    "message": "Displayname",
+    "description": "The DLive name for displayname in the login search box"
+  },
+
+  "streams_empty_title": {
+    "message": "No Live Streams",
+    "description": "Empty state title of the streams route"
+  },
+
+  "streams_empty_subtitle": {
+    "message": "Maybe try again later?",
+    "description": "Empty state subtitle of the streams route"
+  },
+
+  "search_empty_title": {
+    "message": "No Results",
+    "description": "Empty state title of the login route"
+  },
+
+  "search_empty_subtitle": {
+    "message": "Try refining your search?",
+    "description": "Empty state subtitle of the login route"
+  },
+
+  "logout": {
+    "message": "Logout",
+    "description": "user dropdown menu logout"
+  },
+
+  "back": {
+    "message": "Back",
+    "description": "For back buttons"
+  },
+
+  "eth": {
+    "message": "Ethereum",
+    "description": "Ethereum Cryptocurrency Name"
+  },
+
+  "bch": {
+    "message": "Bitcoin Cash",
+    "description": "Bitcoin Cash Cryptocurrency Name"
+  },
+
+  "dash": {
+    "message": "Dash",
+    "description": "Dash Cryptocurrency Name"
+  },
+
+  "zec": {
+    "message": "ZCash",
+    "description": "ZCash Cryptocurrency Name"
+  }
 }

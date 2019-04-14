@@ -5,19 +5,19 @@ import DonationAddress from '../models/donation-address.js';
 
 const DONATION_ADDRESSES = [
   new DonationAddress (
-    'Ethereum',
+    chrome.i18n.getMessage('eth'),
     '0x7D2749fE22B21667Ae0f90B070Bcd82C7f5b6bcc',
     '/images/about/eth.png'),
   new DonationAddress (
-    'Bitcoin Cash',
+    chrome.i18n.getMessage('bch'),
     '14J9Wp3MWetHZLCjcHTL7v8Vcqc4KANi3C',
     '/images/about/bch.png'),
   new DonationAddress (
-    'Dash',
+    chrome.i18n.getMessage('dash'),
     'XfFa5Mxr21KTRJuyhzxVwrhjPyLCeDfQ3d',
     '/images/about/dash.png'),
   new DonationAddress (
-    'ZCash',
+    chrome.i18n.getMessage('zec'),
     't1e9P7x62cZ4TTt9pBVJcaQ5HBbnuCg5iwH',
     '/images/about/zec.png')
 ];
@@ -52,9 +52,9 @@ class PopupAbout extends Component {
 
   view () {
     return m ('popup-about', {class: 'relative'}, [
-      m ('button', {class: 'btn btn-link', onclick: this.back.bind (this)}, 'Back'),
+      m ('button', {class: 'btn btn-link', onclick: this.back.bind (this)}, chrome.i18n.getMessage('back')),
       m ('div', {class: 'about'}, [
-        m ('p', 'Thanks for using DLive Guide! We work on this in our spare time, so if you want to help us out then consider sending us a donation. We will definitely appreciate it!')
+        m ('p', chrome.i18n.getMessage('about_description'))
       ]),
       this.donationAddressList (DONATION_ADDRESSES)
     ]);
