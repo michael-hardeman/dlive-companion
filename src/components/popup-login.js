@@ -34,6 +34,16 @@ let searchData = null;
 
 class PopupLogin extends Component {
 
+  oncreate(vnode) {
+    if (!vnode) { return; }
+    vnode.dom.querySelector('#' + DISPLAYNAME_DOM_ID).addEventListener('keypress', this.maybeSearch.bind (this, vnode));
+  }
+
+  maybeSearch (vnode, event) {
+    if(event.keyCode !== 13) { return; }
+    this.search (vnode);
+  }
+
   buildDliveQuery () {
     return new FetchQL ({url: Constants.DLIVE_BACKEND_URL });
   }
