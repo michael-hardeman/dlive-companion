@@ -2,7 +2,7 @@
   "manifest_version":       2,
   "default_locale":         "en",
   "minimum_chrome_version": "60",
-  "version":                "0.0.1",
+  "version":                "1.0.0",
   "name":                   "__MSG_name__",
   "description":            "__MSG_description__",
   
@@ -18,18 +18,18 @@
 
   "web_accessible_resources": [
     "images/*",
-    "src/*"
+    "dist/*"
   ],
   
   "browser_action": {
-    "default_popup": "src/popup.html",
+    "default_popup": "dist/popup.html",
     "default_icon":  "images/icons/icon-32.png",
     "default_title": "__MSG_browserActionTitle__"
   },
 
   "background": {
     "persistent": false,
-    "page": "src/background.html"
+    "page": "dist/background.html"
   },
   
   "permissions": [

@@ -1,5 +1,5 @@
-import m from '../node_modules/mithril/mithril.mjs';
-import FetchQL from '../node_modules/fetchql/lib/fetchql.es.js';
+import m from '../../node_modules/mithril/mithril.mjs';
+import FetchQL from '../../node_modules/fetchql/lib/fetchql.es.js';
 import * as Constants from '../constants.js';
 import Component from './component.js';
 import UserSearchResults from './popup-search-results.js';

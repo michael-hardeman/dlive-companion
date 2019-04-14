@@ -1,4 +1,4 @@
-import m from '../node_modules/mithril/mithril.mjs';
+import m from '../../node_modules/mithril/mithril.mjs';
 import Component from './component.js';
 import PopupHeading from './popup-heading.js';
 import PopupBody from './popup-body.js';
