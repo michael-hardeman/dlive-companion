@@ -1,4 +1,4 @@
-import FetchQL from './node_modules/fetchql/lib/fetchql.es.js';
+import FetchQL from '../node_modules/fetchql/lib/fetchql.es.js';
 import * as Constants from './constants.js';
 
 const DLIVE_GET_USER_QUERY = `

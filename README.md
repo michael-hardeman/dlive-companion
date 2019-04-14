@@ -3,12 +3,10 @@
 
 A chrome extension that shows all live streams of the people you follow. Written in mithril.js
 
-### Running
+### Building
 
-I will add a build, but currently this requires nodejs to install the dependencies
-
-    cd src
     npm install
+    npm run-script build
 
 ### Contributing
 

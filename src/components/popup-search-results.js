@@ -1,4 +1,4 @@
-import m from '../node_modules/mithril/mithril.mjs';
+import m from '../../node_modules/mithril/mithril.mjs';
 import * as Constants from '../constants.js';
 import Component from './component.js';
 import * as Messages from '../models/messages.js';
