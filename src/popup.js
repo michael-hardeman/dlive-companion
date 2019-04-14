@@ -1,3 +1,4 @@
+import style from './popup.css';
 import m from '../node_modules/mithril/mithril.mjs';
 import PopupMain from './components/popup-main.js';
 

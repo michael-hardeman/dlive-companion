@@ -2,7 +2,7 @@
   "manifest_version":       2,
   "default_locale":         "en",
   "minimum_chrome_version": "60",
-  "version":                "1.0.1",
+  "version":                "1.0.2",
   "name":                   "__MSG_name__",
   "description":            "__MSG_description__",
   
@@ -19,7 +19,9 @@
   "web_accessible_resources": [
     "_locales/*",
     "images/*",
-    "dist/*"
+    "styles/*",
+    "dist/*",
+    "src/*"
   ],
   
   "browser_action": {
@@ -36,8 +38,6 @@
   "permissions": [
     "https://graphigo.prd.dlive.tv/*",
     "cookies",
-    "contextMenus",
-    "notifications",
     "unlimitedStorage"
   ]
 }
