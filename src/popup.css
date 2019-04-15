@@ -31,7 +31,7 @@
 
 .flex-none { flex: none; }
 .flex-auto { flex: auto; }
-.flex      { flex: 1;    }
+.flex-1    { flex: 1;    }
 
 .no-pad { padding: 0; }
 
@@ -173,6 +173,10 @@ popup-streams .stream-user {
   font-weight: bold;
 }
 
-.donation-image {
+popup-about .github-logo {
+  margin-right: 8px;
+}
+
+popup-about .donation-image {
   width: 200px;
 }
