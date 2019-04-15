@@ -13,7 +13,7 @@ class PopupMain extends Component {
   }
 
   view () {
-    return m ('popup-main', {class: 'relative container'}, [
+    return m ('popup-main', {class: 'relative block'}, [
       m (new PopupHeading ()),
       m (new PopupBody ())
     ]);

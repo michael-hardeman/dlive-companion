@@ -23,17 +23,7 @@ const DONATION_ADDRESSES = [
 ];
 
 class PopupAbout extends Component {
-  computeCorrectBackRoute () {
-    if (localStorage.getItem (Constants.DISPLAYNAME_STORAGE_KEY)) {
-      return Constants.STREAMS_ROUTE;
-    }
-    return Constants.LOGIN_ROUTE;
-  }
-
-  back () {
-    m.route.set (this.computeCorrectBackRoute ());
-  }
-
+  
   donationAddressList (addresses) {
     return addresses.map ((item, index) => {
       return m ('div', {class: 'accordion'}, [
@@ -52,7 +42,6 @@ class PopupAbout extends Component {
 
   view () {
     return m ('popup-about', {class: 'relative'}, [
-      m ('button', {class: 'btn btn-link', onclick: this.back.bind (this)}, chrome.i18n.getMessage('back')),
       m ('div', {class: 'about'}, [
         m ('p', chrome.i18n.getMessage('about_description'))
       ]),
