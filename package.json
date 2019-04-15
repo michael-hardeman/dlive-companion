@@ -1,9 +1,10 @@
 {
-  "name": "dlive-guide",
+  "name": "dlive-companion",
   "version": "1.0.2",
   "description": "",
   "private": true,
   "scripts": {
+    "start": "webpack -p --watch",
     "build": "webpack -p"
   },
   "author": "https://github.com/MichaelAllenHardeman",

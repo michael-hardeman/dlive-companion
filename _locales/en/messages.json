@@ -1,6 +1,6 @@
 {
   "name":{
-    "message": "DLive Guide",
+    "message": "DLive Companion",
     "description": "Title of the browser extension"
   },
 
@@ -9,8 +9,13 @@
     "description": "Description of the browser extension"
   },
 
+  "about": {
+    "message": "About",
+    "description": "The link in the user dropdown to the About page"
+  },
+
   "about_description": {
-    "message": "Thanks for using DLive Guide! We work on this in our spare time, so if you want to help us out then consider sending us a donation. We will definitely appreciate it!",
+    "message": "Thanks for using DLive Companion! We work on this in our spare time, so if you want to help us out then consider sending us a donation. We will definitely appreciate it!",
     "description": "The About page description"
   },
 
