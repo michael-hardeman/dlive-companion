@@ -22,7 +22,7 @@ implement your cool new feature, committing as you go. Then push your new branch
 
 ### Translating
 
-If you want to enjoy DLive Guide in your language, just copy the folder '\_locales/en' to '\_locales/code' where code is [your locale code](https://www.w3.org/International/O-charset-lang.html). Translate the message field for each message, it will probably take you 5/10 mins. Be sure to open a pull request to help others! 
+If you want to enjoy DLive Companion in your language, just copy the folder '\_locales/en' to '\_locales/code' where code is [your locale code](https://www.w3.org/International/O-charset-lang.html). Translate the message field for each message, it will probably take you 5/10 mins. Be sure to open a pull request to help others! 
 
 ### Installation
 
