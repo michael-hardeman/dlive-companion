@@ -94,7 +94,7 @@ function extractFollowing (response) {
   let user = JSON.parse (localStorage.getItem (Constants.USER_STORAGE_KEY));
   if (!user) { return Promise.reject (user); }
   let followingInfo = response.data.userByDisplayName.following;
-  if (!followingInfo) { return Promise.reject (followingInfo); }
+  if (!followingInfo) { return Promise.reject ('Following info invalid'); }
   user.following.list = user.following.list.concat (followingInfo.list);
   localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
   return Promise.resolve (response);
@@ -112,11 +112,13 @@ function fetchAllFollowing (displayname, first, after) {
   }).then (extractFollowing).then (maybeFetchAllFollowing);
 }
 
+// recursively traverse the following results until the end is
 function maybeFetchAllFollowing (response) {
   let user = response.data.userByDisplayName;
-  if (!user) { return; }
-  if (!user.following.pageInfo.hasNextPage) { return; }
-  fetchAllFollowing (user.displayname, FOLLOWING_PAGE_SIZE, user.following.pageInfo.endCursor);
+  if (!user) { return Promise.reject('Response invalid'); }
+  // end of recursion reached
+  if (!user.following.pageInfo.hasNextPage) { return Promise.resolve(); } 
+  return fetchAllFollowing (user.displayname, FOLLOWING_PAGE_SIZE, user.following.pageInfo.endCursor);
 }
 
 function updateUserInfo (respond) {
@@ -135,8 +137,9 @@ function updateUserInfo (respond) {
       let user = response.data.userByDisplayName;
       if (!user) { return reject ('User could not be fetched'); }
       localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
-      if (!user.following.pageInfo.hasNextPage) { resolve (user); }
-      maybeFetchAllFollowing(response).then(() => { resolve (localStorage.getItem (Constants.USER_STORAGE_KEY)); });
+      maybeFetchAllFollowing(response).finally(() => {
+        resolve (localStorage.getItem (Constants.USER_STORAGE_KEY));
+      });
     });
   }).finally(respond);
 }
