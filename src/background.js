@@ -84,7 +84,7 @@ query LivestreamPage($displayname: String!, $first: Int, $after: String) {
     }
   }
 }`;
-const FOLLOWING_PAGE_SIZE = 20;
+const FOLLOWING_PAGE_SIZE = 40;
 
 function buildDliveQuery () {
   return new FetchQL ({url: Constants.DLIVE_BACKEND_URL });
@@ -144,16 +144,11 @@ function updateUserInfo (respond) {
   }).finally(respond);
 }
 
-function updateLiveStrems (respond) {
-  respond('unimplemented feature');
-}
-
 // https://developer.chrome.com/extensions/messaging#simple
 // return true allows you to use asynchronicity to respond to the message;
 chrome.runtime.onMessage.addListener(function(message, sender, respond) {
   switch (message.kind) {
-    case Constants.MESSAGE_KIND.UPDATE_USER_INFO: updateUserInfo(respond); break;
-    case Constants.MESSAGE_KIND.UPDATE_LIVE_STREAMS: updateLiveStrems(respond); break;
+    case Constants.UPDATE_USER_INFO_MESSAGE: updateUserInfo(respond); break;
     default: return false;
   }
 

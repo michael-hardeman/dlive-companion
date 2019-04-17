@@ -9,4 +9,5 @@ popup-search-results user {
 
 popup-search-results user:hover {
   background: #4C4C4C;
+  cursor: pointer;
 }

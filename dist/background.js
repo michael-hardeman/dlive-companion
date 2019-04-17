@@ -455,10 +455,7 @@ var FetchQL = function (_FetchInterceptor) {
 }(FetchInterceptor);const USER_STORAGE_KEY = 'user';
 const DISPLAYNAME_STORAGE_KEY = 'displayname';
 const DLIVE_BACKEND_URL = 'https://graphigo.prd.dlive.tv/';
-const MESSAGE_KIND = {
-  'UPDATE_USER_INFO': 'UPDATE_USER_INFO',
-  'UPDATE_LIVE_STREAMS': 'UPDATE_LIVE_STREAMS'
-};const DLIVE_GET_USER_QUERY = `
+const UPDATE_USER_INFO_MESSAGE = 'UPDATE_USER_INFO';const DLIVE_GET_USER_QUERY = `
 query LivestreamPage($displayname: String!, $first: Int, $after: String) {
   userByDisplayName (displayname: $displayname) {
     displayname
@@ -541,7 +538,7 @@ query LivestreamPage($displayname: String!, $first: Int, $after: String) {
     }
   }
 }`;
-const FOLLOWING_PAGE_SIZE = 20;
+const FOLLOWING_PAGE_SIZE = 40;
 
 function buildDliveQuery () {
   return new FetchQL ({url: DLIVE_BACKEND_URL });
@@ -601,16 +598,11 @@ function updateUserInfo (respond) {
   }).finally(respond);
 }
 
-function updateLiveStrems (respond) {
-  respond('unimplemented feature');
-}
-
 // https://developer.chrome.com/extensions/messaging#simple
 // return true allows you to use asynchronicity to respond to the message;
 chrome.runtime.onMessage.addListener(function(message, sender, respond) {
   switch (message.kind) {
-    case MESSAGE_KIND.UPDATE_USER_INFO: updateUserInfo(respond); break;
-    case MESSAGE_KIND.UPDATE_LIVE_STREAMS: updateLiveStrems(respond); break;
+    case UPDATE_USER_INFO_MESSAGE: updateUserInfo(respond); break;
     default: return false;
   }
 

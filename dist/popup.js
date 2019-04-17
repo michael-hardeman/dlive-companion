@@ -1585,10 +1585,7 @@ const DLIVE_FRONTEND_URL = 'https://dlive.tv/';
 const LOGIN_ROUTE = '/login';
 const STREAMS_ROUTE = '/streams';
 const ABOUT_ROUTE = '/about';
-const MESSAGE_KIND = {
-  'UPDATE_USER_INFO': 'UPDATE_USER_INFO',
-  'UPDATE_LIVE_STREAMS': 'UPDATE_LIVE_STREAMS'
-};let user;
+const UPDATE_USER_INFO_MESSAGE = 'UPDATE_USER_INFO';let user;
 
 class PopupHeading extends Component {
 
@@ -2131,7 +2128,7 @@ var FetchQL = function (_FetchInterceptor) {
 
 class UpdateUserInfo extends Message {
   constructor () {
-    super (MESSAGE_KIND.UPDATE_USER_INFO);
+    super (UPDATE_USER_INFO_MESSAGE);
   }
 }let users = [];
 

@@ -5,7 +5,4 @@ export const DLIVE_FRONTEND_URL = 'https://dlive.tv/';
 export const LOGIN_ROUTE = '/login';
 export const STREAMS_ROUTE = '/streams';
 export const ABOUT_ROUTE = '/about';
-export const MESSAGE_KIND = {
-  'UPDATE_USER_INFO': 'UPDATE_USER_INFO',
-  'UPDATE_LIVE_STREAMS': 'UPDATE_LIVE_STREAMS'
-};
+export const UPDATE_USER_INFO_MESSAGE = 'UPDATE_USER_INFO';

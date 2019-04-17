@@ -5,7 +5,10 @@ export default [{
   output: {
     file: 'dist/popup.js',
     format: 'iife',
-    compact: true
+    compact: true,
+    watch: {
+      include: 'src/**/*.css'
+    }
   },
   plugins: [
     css({ output: 'dist/popup.css' })
