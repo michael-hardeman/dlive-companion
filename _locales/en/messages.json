@@ -5,7 +5,7 @@
   },
 
   "description":{
-    "message": "Get all a list of live streams that you follow!",
+    "message": "Get a list of all the people you follow that are live streaming right now!",
     "description": "Description of the browser extension"
   },
 

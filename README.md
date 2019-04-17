@@ -3,11 +3,6 @@
 
 A chrome extension that shows all live streams of the people you follow. Written in mithril.js
 
-### Building
-
-    npm install
-    npm run-script build
-
 ### Contributing
 
 This project will use [git flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
@@ -19,6 +14,15 @@ The basic flow is to branch off develop to a new feature branch:
     git checkout -b feature/my-cool-new-feature
 
 implement your cool new feature, committing as you go. Then push your new branch to origin. Then simply open a pull request back into develop.
+
+### Building
+
+    npm install
+    npm run-script build
+
+### Watching for changes and building
+
+    npm start
 
 ### Translating
 
@@ -37,4 +41,3 @@ If you want to enjoy DLive Companion in your language, just copy the folder '\_l
  3. "Load Unpacked Extension" and select the allnight folder
 
      ![Load Unpacked](images/readme/load_unpacked.png)
-     
