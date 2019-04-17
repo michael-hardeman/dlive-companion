@@ -136,7 +136,7 @@ function updateUserInfo (respond) {
       if (!user) { return reject ('User could not be fetched'); }
       localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
       if (!user.following.pageInfo.hasNextPage) { resolve (user); }
-      maybeFetchAllFollowing(response).then(() => { resolve (localStorage.setItem (Constants.USER_STORAGE_KEY)); });
+      maybeFetchAllFollowing(response).then(() => { resolve (localStorage.getItem (Constants.USER_STORAGE_KEY)); });
     });
   }).finally(respond);
 }
