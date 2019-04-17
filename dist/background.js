@@ -615,4 +615,4 @@ chrome.runtime.onMessage.addListener(function(message, sender, respond) {
   }
 
   return true;
-});}());//# sourceMappingURL=background.js.map
+});}());

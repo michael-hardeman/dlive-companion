@@ -3,6 +3,7 @@ import Component from './component.js';
 import PopupHeading from './popup-heading.js';
 import PopupBody from './popup-body.js';
 import * as Messages from '../models/messages.js';
+import './popup-main.css';
 
 class PopupMain extends Component {
   constructor () {

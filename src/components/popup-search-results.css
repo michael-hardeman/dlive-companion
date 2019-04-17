@@ -1,0 +1,12 @@
+popup-search-results .avatar {
+  width: 48px;
+  height: 48px;
+}
+
+popup-search-results user {
+  padding: 4px 8px;
+}
+
+popup-search-results user:hover {
+  background: #4C4C4C;
+}

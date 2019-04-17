@@ -2461,4 +2461,4 @@ class PopupBody extends Component {
       m (new PopupBody ())
     ]);
   }
-}m.mount (document.body, new PopupMain ());}());//# sourceMappingURL=popup.js.map
+}m.mount (document.body, new PopupMain ());}());
