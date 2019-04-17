@@ -4,21 +4,17 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack -p --watch",
-    "build": "webpack -p"
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
   },
   "author": "https://github.com/MichaelAllenHardeman",
   "license": "MIT",
   "dependencies": {
     "fetchql": "^3.0.0",
     "mithril": "^2.0.0-rc.4",
-    "spectre.css": "^0.5.8",
-    "style-loader": "^0.23.1"
+    "spectre.css": "^0.5.8"
   },
   "devDependencies": {
-    "css-loader": "^2.1.1",
-    "html-webpack-plugin": "^4.0.0-beta.5",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.0"
+    "rollup": "^1.5.0"
   }
 }
