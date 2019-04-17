@@ -50,6 +50,7 @@ query LivestreamPage($displayname: String!, $first: Int, $after: String) {
 const DLIVE_GET_USER_FOLLOWING_NEXT_PAGE = `
 query LivestreamPage($displayname: String!, $first: Int, $after: String) {
   userByDisplayName (displayname: $displayname) {
+    displayname
     following (
       sortedBy: AZ 
       first: $first,
@@ -92,7 +93,7 @@ function buildDliveQuery () {
 function extractFollowing (response) {
   let user = JSON.parse (localStorage.getItem (Constants.USER_STORAGE_KEY));
   if (!user) { return Promise.reject (user); }
-  let followingInfo = response.data.userByDisplayName;
+  let followingInfo = response.data.userByDisplayName.following;
   if (!followingInfo) { return Promise.reject (followingInfo); }
   user.following.list = user.following.list.concat (followingInfo.list);
   localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
@@ -134,8 +135,8 @@ function updateUserInfo (respond) {
       let user = response.data.userByDisplayName;
       if (!user) { return reject ('User could not be fetched'); }
       localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
-      resolve (user);
-      maybeFetchAllFollowing(response);
+      if (!user.following.pageInfo.hasNextPage) { resolve (user); }
+      maybeFetchAllFollowing(response).then(() => { resolve (localStorage.setItem (Constants.USER_STORAGE_KEY)); });
     });
   }).finally(respond);
 }
