@@ -8,12 +8,12 @@ export class Message {
 
 export class UpdateUserInfo extends Message {
   constructor () {
-    super (Constants.MESSAGE_KIND.UPDATE_USER_INFO);
+    super (Constants.UPDATE_USER_INFO_MESSAGE);
   }
 }
 
-export class UpdateLiveStreams extends Message {
+export class UserInfoUpdated extends Message {
   constructor () {
-    super (Constants.MESSAGE_KIND.UPDATE_LIVE_STREAMS);
+    super (Constants.USER_INFO_UPDATED_MESSAGE);
   }
 }

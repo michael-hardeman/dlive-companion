@@ -30,7 +30,7 @@
   },
 
   "background": {
-    "persistent": false,
+    "persistent": true,
     "page": "dist/background.html"
   },
   

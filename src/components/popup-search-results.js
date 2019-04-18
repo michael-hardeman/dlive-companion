@@ -2,6 +2,7 @@ import m from '../../node_modules/mithril/mithril.mjs';
 import * as Constants from '../constants.js';
 import Component from './component.js';
 import * as Messages from '../models/messages.js';
+import './popup-search-results.css';
 
 let users = [];
 
@@ -19,18 +20,16 @@ class PopupSearchResults extends Component {
         m ('div', {class: 'empty-icon'}, [
           m ('i', {class: 'icon icon-people'})
         ]),
-        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage('search_empty_title')),
-        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage('search_empty_subtitle'))
+        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage ('search_empty_title')),
+        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage ('search_empty_subtitle'))
       ])
     ];
   }
 
   selectUser(user) {
     localStorage.setItem (Constants.DISPLAYNAME_STORAGE_KEY, user.displayname);
-    chrome.runtime.sendMessage(new Messages.UpdateUserInfo(), () => {
-      m.route.set (Constants.STREAMS_ROUTE);
-      m.redraw ();
-    });
+    chrome.runtime.sendMessage (new Messages.UpdateUserInfo ());
+    m.route.set (Constants.STREAMS_ROUTE); 
   }
 
   userList (users) {
@@ -65,8 +64,8 @@ class PopupSearchResults extends Component {
 
   view () {
     return m ('popup-search-results', [
-      this.maybeShowUserList(users),
-      this.maybeShowPagination()
+      this.maybeShowUserList (users),
+      this.maybeShowPagination ()
     ]);
   }
 }

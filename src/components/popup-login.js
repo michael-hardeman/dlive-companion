@@ -36,11 +36,13 @@ class PopupLogin extends Component {
 
   oncreate(vnode) {
     if (!vnode) { return; }
-    vnode.dom.querySelector('#' + DISPLAYNAME_DOM_ID).addEventListener('keypress', this.maybeSearch.bind (this, vnode));
+    let input = vnode.dom.querySelector ('#' + DISPLAYNAME_DOM_ID);
+    if (!input) { return; }
+    input.addEventListener ('keypress', this.maybeSearch.bind (this, vnode));
   }
 
   maybeSearch (vnode, event) {
-    if(event.keyCode !== 13) { return; }
+    if (event.keyCode !== 13) { return; }
     this.search (vnode);
   }
 
@@ -91,7 +93,7 @@ class PopupLogin extends Component {
           id: DISPLAYNAME_DOM_ID,
           class: 'form-input',
           type: 'text',
-          placeholder: chrome.i18n.getMessage('login_placeholder'),
+          placeholder: chrome.i18n.getMessage ('login_placeholder'),
           value: this.displayname,
           autofocus: true
         }),

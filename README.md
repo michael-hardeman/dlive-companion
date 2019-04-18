@@ -15,18 +15,21 @@ The basic flow is to branch off develop to a new feature branch:
 
 implement your cool new feature, committing as you go. Then push your new branch to origin. Then simply open a pull request back into develop.
 
-### Building
+### Installing Dependencies
 
     npm install
-    npm run-script build
 
-### Watching for changes and building
+### Building
 
-    npm start
+    npm run build
+
+### Watching and Building on Changes
+
+    npm run watch
 
 ### Translating
 
-If you want to enjoy DLive Companion in your language, just copy the folder '\_locales/en' to '\_locales/code' where code is [your locale code](https://www.w3.org/International/O-charset-lang.html). Translate the message field for each message, it will probably take you 5/10 mins. Be sure to open a pull request to help others! 
+If you want to enjoy DLive Companion in your language, just copy the folder '\_locales/en' to '\_locales/code' where code is [your locale code](https://www.w3.org/International/O-charset-lang.html). Translate the message field for each item, it will probably take you 5/10 mins. Be sure to open a pull request to help others! 
 
 ### Installation
 
