@@ -6,3 +6,5 @@ export const LOGIN_ROUTE = '/login';
 export const STREAMS_ROUTE = '/streams';
 export const ABOUT_ROUTE = '/about';
 export const UPDATE_USER_INFO_MESSAGE = 'UPDATE_USER_INFO';
+export const USER_INFO_UPDATED_MESSAGE = 'USER_INFO_UPDATED';
+export const UPDATE_INTERVAL_RATE = 5 * 60 * 1000;
