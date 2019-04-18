@@ -1661,7 +1661,7 @@ class PopupHeading extends Component {
         m ('img', {class: 'logo', src: '/images/icons/icon-48.png', onclick: this.home.bind (this)})
       ]),
       m ('div', {class: 'flex flex-1 justify-center'}, [
-        m ('h4', {class: 'title self-center'}, chrome.i18n.getMessage('name'))
+        m ('h4', {class: 'title self-center'}, chrome.i18n.getMessage ('name'))
       ]),
       this.maybeUserDropdown (user)
     ]);
@@ -2146,15 +2146,15 @@ class PopupSearchResults extends Component {
         m ('div', {class: 'empty-icon'}, [
           m ('i', {class: 'icon icon-people'})
         ]),
-        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage('search_empty_title')),
-        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage('search_empty_subtitle'))
+        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage ('search_empty_title')),
+        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage ('search_empty_subtitle'))
       ])
     ];
   }
 
   selectUser(user) {
     localStorage.setItem (DISPLAYNAME_STORAGE_KEY, user.displayname);
-    chrome.runtime.sendMessage(new UpdateUserInfo(), () => {
+    chrome.runtime.sendMessage (new UpdateUserInfo (), () => {
       m.route.set (STREAMS_ROUTE);
       m.redraw ();
     });
@@ -2192,8 +2192,8 @@ class PopupSearchResults extends Component {
 
   view () {
     return m ('popup-search-results', [
-      this.maybeShowUserList(users),
-      this.maybeShowPagination()
+      this.maybeShowUserList (users),
+      this.maybeShowPagination ()
     ]);
   }
 }const DISPLAYNAME_DOM_ID = 'display-name';
@@ -2228,11 +2228,13 @@ class PopupLogin extends Component {
 
   oncreate(vnode) {
     if (!vnode) { return; }
-    vnode.dom.querySelector('#' + DISPLAYNAME_DOM_ID).addEventListener('keypress', this.maybeSearch.bind (this, vnode));
+    let input = vnode.dom.querySelector ('#' + DISPLAYNAME_DOM_ID);
+    if (!input) { return; }
+    input.addEventListener ('keypress', this.maybeSearch.bind (this, vnode));
   }
 
   maybeSearch (vnode, event) {
-    if(event.keyCode !== 13) { return; }
+    if (event.keyCode !== 13) { return; }
     this.search (vnode);
   }
 
@@ -2283,7 +2285,7 @@ class PopupLogin extends Component {
           id: DISPLAYNAME_DOM_ID,
           class: 'form-input',
           type: 'text',
-          placeholder: chrome.i18n.getMessage('login_placeholder'),
+          placeholder: chrome.i18n.getMessage ('login_placeholder'),
           value: this.displayname,
           autofocus: true
         }),
@@ -2302,8 +2304,8 @@ class PopupLogin extends Component {
         m ('div', {class: 'empty-icon'}, [
           m ('i', {class: 'icon icon-bookmark'})
         ]),
-        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage('streams_empty_title')),
-        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage('streams_empty_subtitle'))
+        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage ('streams_empty_title')),
+        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage ('streams_empty_subtitle'))
       ])
     ];
   }
@@ -2315,7 +2317,7 @@ class PopupLogin extends Component {
   followingList (following) {
     return following.map ((user) => {
       return m ('a', {
-        href: this.computeStreamLink(user), 
+        href: this.computeStreamLink (user), 
         target:'_blank', 
         rel:'noopener noreferrer'
       }, [
@@ -2345,12 +2347,12 @@ class PopupLogin extends Component {
   }
 
   getFollowingWithLivestreams () {
-    let user = localStorage.getItem(USER_STORAGE_KEY);
+    let user = localStorage.getItem (USER_STORAGE_KEY);
     if (!user) { return []; }
     user = JSON.parse (user);
     return user.following.list.filter ((following) => {
       return following.livestream !== null;
-    }).map((following) => {
+    }).map ((following) => {
       return following;
     });
   }
@@ -2368,19 +2370,19 @@ class PopupLogin extends Component {
   }
 }const DONATION_ADDRESSES = [
   new DonationAddress (
-    chrome.i18n.getMessage('eth'),
+    chrome.i18n.getMessage ('eth'),
     '0x7D2749fE22B21667Ae0f90B070Bcd82C7f5b6bcc',
     '/images/about/eth.png'),
   new DonationAddress (
-    chrome.i18n.getMessage('bch'),
+    chrome.i18n.getMessage ('bch'),
     '14J9Wp3MWetHZLCjcHTL7v8Vcqc4KANi3C',
     '/images/about/bch.png'),
   new DonationAddress (
-    chrome.i18n.getMessage('dash'),
+    chrome.i18n.getMessage ('dash'),
     'XfFa5Mxr21KTRJuyhzxVwrhjPyLCeDfQ3d',
     '/images/about/dash.png'),
   new DonationAddress (
-    chrome.i18n.getMessage('zec'),
+    chrome.i18n.getMessage ('zec'),
     't1e9P7x62cZ4TTt9pBVJcaQ5HBbnuCg5iwH',
     '/images/about/zec.png')
 ];
@@ -2415,7 +2417,7 @@ class PopupAbout extends Component {
         m ('span', {class: 'self-center flex-auto'}, 'DLive Companion')
       ]),
       m ('div', {class: 'about'}, [
-        m ('span', chrome.i18n.getMessage('about_description'))
+        m ('span', chrome.i18n.getMessage ('about_description'))
       ]),
       this.donationAddressList (DONATION_ADDRESSES)
     ]);
@@ -2447,7 +2449,7 @@ class PopupBody extends Component {
 }class PopupMain extends Component {
   constructor () {
     super ();
-    chrome.runtime.sendMessage(new UpdateUserInfo(), () => {
+    chrome.runtime.sendMessage (new UpdateUserInfo (), () => {
       m.redraw ();
     });
   }

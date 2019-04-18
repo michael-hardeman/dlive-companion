@@ -50,6 +50,11 @@ input[type=text] {
   color: #FFD300;
   border-radius: 8px; 
 }
+
+.empty {
+  background: initial;
+  color: #FFFFFF;
+}
 popup-main {
   width: 320px;
   max-height: 600px;

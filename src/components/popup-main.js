@@ -8,7 +8,7 @@ import './popup-main.css';
 class PopupMain extends Component {
   constructor () {
     super ();
-    chrome.runtime.sendMessage(new Messages.UpdateUserInfo(), () => {
+    chrome.runtime.sendMessage (new Messages.UpdateUserInfo (), () => {
       m.redraw ();
     });
   }

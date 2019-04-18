@@ -5,19 +5,19 @@ import './popup-about.css';
 
 const DONATION_ADDRESSES = [
   new DonationAddress (
-    chrome.i18n.getMessage('eth'),
+    chrome.i18n.getMessage ('eth'),
     '0x7D2749fE22B21667Ae0f90B070Bcd82C7f5b6bcc',
     '/images/about/eth.png'),
   new DonationAddress (
-    chrome.i18n.getMessage('bch'),
+    chrome.i18n.getMessage ('bch'),
     '14J9Wp3MWetHZLCjcHTL7v8Vcqc4KANi3C',
     '/images/about/bch.png'),
   new DonationAddress (
-    chrome.i18n.getMessage('dash'),
+    chrome.i18n.getMessage ('dash'),
     'XfFa5Mxr21KTRJuyhzxVwrhjPyLCeDfQ3d',
     '/images/about/dash.png'),
   new DonationAddress (
-    chrome.i18n.getMessage('zec'),
+    chrome.i18n.getMessage ('zec'),
     't1e9P7x62cZ4TTt9pBVJcaQ5HBbnuCg5iwH',
     '/images/about/zec.png')
 ];
@@ -52,7 +52,7 @@ class PopupAbout extends Component {
         m ('span', {class: 'self-center flex-auto'}, 'DLive Companion')
       ]),
       m ('div', {class: 'about'}, [
-        m ('span', chrome.i18n.getMessage('about_description'))
+        m ('span', chrome.i18n.getMessage ('about_description'))
       ]),
       this.donationAddressList (DONATION_ADDRESSES)
     ]);

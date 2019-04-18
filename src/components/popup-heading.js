@@ -79,7 +79,7 @@ class PopupHeading extends Component {
         m ('img', {class: 'logo', src: '/images/icons/icon-48.png', onclick: this.home.bind (this)})
       ]),
       m ('div', {class: 'flex flex-1 justify-center'}, [
-        m ('h4', {class: 'title self-center'}, chrome.i18n.getMessage('name'))
+        m ('h4', {class: 'title self-center'}, chrome.i18n.getMessage ('name'))
       ]),
       this.maybeUserDropdown (user)
     ]);

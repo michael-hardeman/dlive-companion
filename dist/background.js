@@ -566,10 +566,10 @@ function fetchAllFollowing (displayname, first, after) {
   }).then (extractFollowing).then (maybeFetchAllFollowing);
 }
 
-// recursively traverse the following results until the end is
+// recursively traverse the following results until the end is reached
 function maybeFetchAllFollowing (response) {
   let user = response.data.userByDisplayName;
-  if (!user) { return Promise.reject('Response invalid'); }
+  if (!user) { return Promise.reject ('Response invalid'); }
   // end of recursion reached
   if (!user.following.pageInfo.hasNextPage) { return Promise.resolve(); } 
   return fetchAllFollowing (user.displayname, FOLLOWING_PAGE_SIZE, user.following.pageInfo.endCursor);
@@ -577,9 +577,9 @@ function maybeFetchAllFollowing (response) {
 
 function updateUserInfo (respond) {
   let displayname = localStorage.getItem(DISPLAYNAME_STORAGE_KEY);
-  if (!displayname) { respond('No displayname in storage.'); return; }
+  if (!displayname) { respond ('No displayname in storage.'); return; }
   
-  return new Promise((resolve, reject) => {
+  return new Promise ((resolve, reject) => {
     buildDliveQuery ().query ({
       operationName: 'LivestreamPage',
       variables: {
@@ -591,11 +591,11 @@ function updateUserInfo (respond) {
       let user = response.data.userByDisplayName;
       if (!user) { return reject ('User could not be fetched'); }
       localStorage.setItem (USER_STORAGE_KEY, JSON.stringify (user));
-      maybeFetchAllFollowing(response).finally(() => {
+      maybeFetchAllFollowing (response).finally (() => {
         resolve (localStorage.getItem (USER_STORAGE_KEY));
       });
     });
-  }).finally(respond);
+  }).finally (respond);
 }
 
 // https://developer.chrome.com/extensions/messaging#simple

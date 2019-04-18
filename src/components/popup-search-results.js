@@ -20,15 +20,15 @@ class PopupSearchResults extends Component {
         m ('div', {class: 'empty-icon'}, [
           m ('i', {class: 'icon icon-people'})
         ]),
-        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage('search_empty_title')),
-        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage('search_empty_subtitle'))
+        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage ('search_empty_title')),
+        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage ('search_empty_subtitle'))
       ])
     ];
   }
 
   selectUser(user) {
     localStorage.setItem (Constants.DISPLAYNAME_STORAGE_KEY, user.displayname);
-    chrome.runtime.sendMessage(new Messages.UpdateUserInfo(), () => {
+    chrome.runtime.sendMessage (new Messages.UpdateUserInfo (), () => {
       m.route.set (Constants.STREAMS_ROUTE);
       m.redraw ();
     });
@@ -66,8 +66,8 @@ class PopupSearchResults extends Component {
 
   view () {
     return m ('popup-search-results', [
-      this.maybeShowUserList(users),
-      this.maybeShowPagination()
+      this.maybeShowUserList (users),
+      this.maybeShowPagination ()
     ]);
   }
 }
