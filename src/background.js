@@ -1,5 +1,6 @@
 import FetchQL from '../node_modules/fetchql/lib/fetchql.es.js';
 import * as Constants from './constants.js';
+import * as Messages from './models/messages.js';
 
 const DLIVE_GET_USER_QUERY = `
 query LivestreamPage($displayname: String!, $first: Int, $after: String) {
@@ -92,7 +93,7 @@ function buildDliveQuery () {
 
 function extractFollowing (response) {
   let user = JSON.parse (localStorage.getItem (Constants.USER_STORAGE_KEY));
-  if (!user) { return Promise.reject (user); }
+  if (!user) { return Promise.reject ('User somehow deleted'); }
   let followingInfo = response.data.userByDisplayName.following;
   if (!followingInfo) { return Promise.reject ('Following info invalid'); }
   user.following.list = user.following.list.concat (followingInfo.list);
@@ -100,7 +101,7 @@ function extractFollowing (response) {
   return Promise.resolve (response);
 }
 
-function fetchAllFollowing (displayname, first, after) {
+function getFollowingInfo (displayname, first, after) {
   return buildDliveQuery ().query ({
     operationName: 'LivestreamPage',
     variables: {
@@ -109,7 +110,17 @@ function fetchAllFollowing (displayname, first, after) {
       after: after
     },
     query: DLIVE_GET_USER_FOLLOWING_NEXT_PAGE
-  }).then (extractFollowing).then (maybeFetchAllFollowing);
+  });
+}
+
+function fetchAllFollowing (displayname, first, after) {
+  return new Promise ((resolve, reject) => {
+    getFollowingInfo (displayname, first, after)
+      .then (extractFollowing)
+      .then (maybeFetchAllFollowing)
+      .then (resolve)
+      .catch (reject);
+  });
 }
 
 // recursively traverse the following results until the end is reached
@@ -121,37 +132,55 @@ function maybeFetchAllFollowing (response) {
   return fetchAllFollowing (user.displayname, FOLLOWING_PAGE_SIZE, user.following.pageInfo.endCursor);
 }
 
-function updateUserInfo (respond) {
-  let displayname = localStorage.getItem(Constants.DISPLAYNAME_STORAGE_KEY);
-  if (!displayname) { respond ('No displayname in storage.'); return; }
-  
-  return new Promise ((resolve, reject) => {
-    buildDliveQuery ().query ({
-      operationName: 'LivestreamPage',
-      variables: {
-        displayname: displayname,
-        first: FOLLOWING_PAGE_SIZE
-      },
-      query: DLIVE_GET_USER_QUERY
-    }).then((response) => {
-      let user = response.data.userByDisplayName;
-      if (!user) { return reject ('User could not be fetched'); }
-      localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
-      maybeFetchAllFollowing (response).finally (() => {
-        resolve (localStorage.getItem (Constants.USER_STORAGE_KEY));
-      });
-    });
-  }).finally (respond);
+function getUserInfo (displayname) {
+  return buildDliveQuery ().query ({
+    operationName: 'LivestreamPage',
+    variables: {
+      displayname: displayname,
+      first: FOLLOWING_PAGE_SIZE
+    },
+    query: DLIVE_GET_USER_QUERY
+  });
 }
 
-// https://developer.chrome.com/extensions/messaging#simple
-// return true allows you to use asynchronicity to respond to the message;
-chrome.runtime.onMessage.addListener(function(message, sender, respond) {
+function handleUserInfoResponse (response) {
+  return new Promise ((resolve, reject) => {
+    let user = response.data.userByDisplayName;
+    if (!user) { return reject ('User could not be fetched'); }
+    localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
+    maybeFetchAllFollowing (response)
+      .then (resolve)
+      .catch (reject);
+  });
+}
+
+function maybeUpdateUserInfo (displayname) {
+  if (!displayname) { return Promise.reject ('No displayname'); }
+
+  return new Promise ((resolve, reject) => {
+    getUserInfo (displayname)
+      .then (handleUserInfoResponse)
+      .then (resolve)
+      .catch (reject);
+  });
+}
+
+function sendMessageUserUpdated () { chrome.runtime.sendMessage (new Messages.UserInfoUpdated ()); }
+function logAndIgnore (reason) { console.log (reason); }
+
+function onUpdateUserInfoMessage () {
+  maybeUpdateUserInfo (localStorage.getItem (Constants.DISPLAYNAME_STORAGE_KEY))
+    .then (sendMessageUserUpdated)
+    .catch (logAndIgnore);
+}
+
+// Doesn't immediately fire.
+setInterval (onUpdateUserInfoMessage, Constants.UPDATE_INTERVAL_RATE);
+onUpdateUserInfoMessage ();
+
+chrome.runtime.onMessage.addListener ((message) => {
   switch (message.kind) {
-    case Constants.UPDATE_USER_INFO_MESSAGE: updateUserInfo(respond); break;
-    default: return false;
+    case Constants.UPDATE_USER_INFO_MESSAGE: return onUpdateUserInfoMessage ();
+    default: throw new Error ('Unknown Message: ' + message.kind);
   }
-
-  return true;
 });
-

@@ -11,3 +11,9 @@ export class UpdateUserInfo extends Message {
     super (Constants.UPDATE_USER_INFO_MESSAGE);
   }
 }
+
+export class UserInfoUpdated extends Message {
+  constructor () {
+    super (Constants.USER_INFO_UPDATED_MESSAGE);
+  }
+}
