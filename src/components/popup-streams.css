@@ -1,0 +1,33 @@
+popup-streams .thumbnail {
+  width: 92px;
+  height: 52px;
+}
+
+popup-streams stream {
+  padding: 4px 8px;
+}
+
+popup-streams stream:hover {
+  background: #4C4C4C;
+}
+
+popup-streams .tile-content {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+popup-streams .tile-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+popup-streams .tile-content i {
+  align-self: center;
+}
+
+popup-streams .stream-user {
+  flex-grow: 2;
+  font-weight: bold;
+}

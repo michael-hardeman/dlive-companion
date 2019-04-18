@@ -1,1 +1,610 @@
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var i=t[r]={i:r,l:!1,exports:{}};return e[r].call(i.exports,i,i.exports,n),i.l=!0,i.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var i in e)n.d(r,i,function(t){return e[t]}.bind(null,i));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=10)}({0:function(e,t,n){"use strict";n.d(t,"h",function(){return r}),n.d(t,"b",function(){return i}),n.d(t,"c",function(){return a}),n.d(t,"d",function(){return o}),n.d(t,"e",function(){return s}),n.d(t,"g",function(){return u}),n.d(t,"a",function(){return c}),n.d(t,"f",function(){return l});const r="user",i="displayname",a="https://graphigo.prd.dlive.tv/",o="https://dlive.tv/",s="/login",u="/streams",c="/about",l={UPDATE_USER_INFO:"UPDATE_USER_INFO",UPDATE_LIVE_STREAMS:"UPDATE_LIVE_STREAMS"}},1:function(e,t,n){"use strict";var r=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var a=function(){function e(){var t=this;i(this,e),this.interceptors=[],this.fetch=function(){for(var e=arguments.length,n=Array(e),r=0;r<e;r++)n[r]=arguments[r];return t.interceptorWrapper.apply(t,[fetch].concat(n))}}return r(e,[{key:"addInterceptors",value:function(e){var t=this,n=[];return Array.isArray(e)?e.map(function(e){return n.push(t.interceptors.length),t.interceptors.push(e)}):e instanceof Object&&(n.push(this.interceptors.length),this.interceptors.push(e)),this.updateInterceptors(),function(){return t.removeInterceptors(n)}}},{key:"removeInterceptors",value:function(e){var t=this;Array.isArray(e)&&(e.map(function(e){return t.interceptors.splice(e,1)}),this.updateInterceptors())}},{key:"updateInterceptors",value:function(){this.reversedInterceptors=this.interceptors.reduce(function(e,t){return[t].concat(e)},[])}},{key:"clearInterceptors",value:function(){this.interceptors=[],this.updateInterceptors()}},{key:"interceptorWrapper",value:function(e){for(var t=arguments.length,n=Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];var i=Promise.resolve(n);return this.reversedInterceptors.forEach(function(e){var t=e.request,r=e.requestError;(t||r)&&(i=i.then(function(){return t.apply(void 0,n)},r))}),i=i.then(function(){return e.apply(void 0,n)}),this.reversedInterceptors.forEach(function(e){var t=e.response,n=e.responseError;(t||n)&&(i=i.then(t,n))}),i}}]),e}(),o=function(e){function t(e){var n=e.url,r=e.interceptors,a=e.headers,o=e.onStart,s=e.onEnd,u=e.omitEmptyVariables,c=void 0!==u&&u,l=e.requestOptions,f=void 0===l?{}:l;i(this,t);var p=function(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return p.requestObject=Object.assign({},{method:"POST",headers:Object.assign({},{Accept:"application/json","Content-Type":"application/json"},a),credentials:"same-origin"},f),p.url=n,p.omitEmptyVariables=c,p.requestQueueLength=0,p.EnumMap={},p.callbacks={onStart:o,onEnd:s},p.addInterceptors(r),p}return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}(t,a),r(t,[{key:"query",value:function(e){var t=this,n=e.operationName,r=e.query,i=e.variables,a=e.opts,o=void 0===a?{}:a,s=e.requestOptions,u=void 0===s?{}:s,c=Object.assign({},this.requestObject,u),l={operationName:n,query:r,variables:this.omitEmptyVariables||o.omitEmptyVariables?this.doOmitEmptyVariables(i):i};return c.body=JSON.stringify(l),this.onStart(),this.fetch(this.url,c).then(function(e){return e.ok?e.json():{errors:[{message:e.statusText,stack:e}]}}).then(function(e){var n=e.data,r=e.errors;return new Promise(function(e,i){return t.onEnd(),n?Object.keys(n).every(function(e){return!n[e]})?i(r):e({data:n,errors:r}):i(r||[{}])})})}},{key:"getUrl",value:function(){return this.url}},{key:"setUrl",value:function(e){this.url=e}},{key:"getEnumTypes",value:function(e){var t=this,n={},r=e.filter(function(e){return!t.EnumMap[e]||(n[e]=t.EnumMap[e],!1)});if(!r.length)return new Promise(function(e){e({data:n})});var i="\n      query {\n        "+r.map(function(e){return e+': __type(name: "'+e+'") {\n        ...EnumFragment\n      }'}).join("\n")+"\n      }\n      \n      fragment EnumFragment on __Type {\n        kind\n        description\n        enumValues {\n          name\n          description\n        }\n      }",a=Object.assign({},this.requestObject);return a.body=JSON.stringify({query:i}),this.onStart(),this.fetch(this.url,a).then(function(e){return e.ok?e.json():{errors:[{message:e.statusText,stack:e}]}}).then(function(e){var r=e.data,i=e.errors;return new Promise(function(e,a){if(t.onEnd(),!r)return a(i||[{message:"Do not get any data."}]);if(Object.keys(r).every(function(e){return!r[e]})&&i&&i.length)return a(i);var o=Object.assign(n,r);return Object.keys(r).map(function(e){return t.EnumMap[e]=r[e],e}),e({data:o,errors:i})})})}},{key:"onStart",value:function(){this.requestQueueLength++,this.requestQueueLength>1||!this.callbacks.onStart||this.callbacks.onStart(this.requestQueueLength)}},{key:"onEnd",value:function(){this.requestQueueLength--,!this.requestQueueLength&&this.callbacks.onEnd&&this.callbacks.onEnd(this.requestQueueLength)}},{key:"doOmitEmptyVariables",value:function(e){var t=this,n={};return Object.keys(e).map(function(r){var i=e[r];return"string"==typeof i&&0===i.length||null==i?r:(i instanceof Object?n[r]=t.doOmitEmptyVariables(i):n[r]=i,r)}),n}}]),t}();t.a=o},10:function(e,t,n){"use strict";n.r(t);var r=n(1),i=n(0);const a="\nquery LivestreamPage($displayname: String!, $first: Int, $after: String) {\n  userByDisplayName (displayname: $displayname) {\n    displayname\n    avatar\n    id\n    username\n    livestream {\n      id\n      permlink\n    }\n    \n    following (\n      sortedBy: AZ \n      first: $first,\n      after: $after\n    ) {\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n      list {\n        avatar\n        displayname\n        partnerStatus\n        id\n        username\n        displayname\n        livestream {\n          id\n          permlink\n          title\n          thumbnailUrl\n          watchingCount\n          category {\n            title\n          }\n        }\n        followers {\n          totalCount\n        }\n      }\n    }\n  }\n}",o="\nquery LivestreamPage($displayname: String!, $first: Int, $after: String) {\n  userByDisplayName (displayname: $displayname) {\n    displayname\n    following (\n      sortedBy: AZ \n      first: $first,\n      after: $after\n    ) {\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n      list {\n        avatar\n        displayname\n        partnerStatus\n        id\n        username\n        displayname\n        livestream {\n          id\n          permlink\n          title\n          thumbnailUrl\n          watchingCount\n          category {\n            title\n          }\n        }\n        followers {\n          totalCount\n        }\n      }\n    }\n  }\n}",s=20;function u(){return new r.a({url:i.c})}function c(e){let t=JSON.parse(localStorage.getItem(i.h));if(!t)return Promise.reject(t);let n=e.data.userByDisplayName.following;return n?(t.following.list=t.following.list.concat(n.list),localStorage.setItem(i.h,JSON.stringify(t)),Promise.resolve(e)):Promise.reject("Following info invalid")}function l(e){let t=e.data.userByDisplayName;return t?t.following.pageInfo.hasNextPage?(n=t.displayname,r=s,i=t.following.pageInfo.endCursor,u().query({operationName:"LivestreamPage",variables:{displayname:n,first:r,after:i},query:o}).then(c).then(l)):Promise.resolve():Promise.reject("Response invalid");var n,r,i}chrome.runtime.onMessage.addListener(function(e,t,n){switch(e.kind){case i.f.UPDATE_USER_INFO:!function(e){let t=localStorage.getItem(i.b);if(t)return new Promise((e,n)=>{u().query({operationName:"LivestreamPage",variables:{displayname:t,first:s},query:a}).then(t=>{let r=t.data.userByDisplayName;if(!r)return n("User could not be fetched");localStorage.setItem(i.h,JSON.stringify(r)),l(t).finally(()=>{e(localStorage.getItem(i.h))})})}).finally(e);e("No displayname in storage.")}(n);break;case i.f.UPDATE_LIVE_STREAMS:!function(e){e("unimplemented feature")}(n);break;default:return!1}return!0})}});
+(function(){'use strict';var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/** Class to realize fetch interceptors */
+var FetchInterceptor = function () {
+  function FetchInterceptor() {
+    var _this = this;
+
+    _classCallCheck(this, FetchInterceptor);
+
+    this.interceptors = [];
+
+    this.fetch = function () {
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _this.interceptorWrapper.apply(_this, [fetch].concat(args));
+    };
+  }
+
+  /**
+   * add new interceptors
+   * @param {(Object|Object[])} interceptors
+   */
+
+
+  _createClass(FetchInterceptor, [{
+    key: 'addInterceptors',
+    value: function addInterceptors(interceptors) {
+      var _this2 = this;
+
+      var removeIndex = [];
+
+      if (Array.isArray(interceptors)) {
+        interceptors.map(function (interceptor) {
+          removeIndex.push(_this2.interceptors.length);
+          return _this2.interceptors.push(interceptor);
+        });
+      } else if (interceptors instanceof Object) {
+        removeIndex.push(this.interceptors.length);
+        this.interceptors.push(interceptors);
+      }
+
+      this.updateInterceptors();
+
+      return function () {
+        return _this2.removeInterceptors(removeIndex);
+      };
+    }
+
+    /**
+     * remove interceptors by indexes
+     * @param {number[]} indexes 
+     */
+
+  }, {
+    key: 'removeInterceptors',
+    value: function removeInterceptors(indexes) {
+      var _this3 = this;
+
+      if (Array.isArray(indexes)) {
+        indexes.map(function (index) {
+          return _this3.interceptors.splice(index, 1);
+        });
+        this.updateInterceptors();
+      }
+    }
+
+    /**
+     * @private
+     */
+
+  }, {
+    key: 'updateInterceptors',
+    value: function updateInterceptors() {
+      this.reversedInterceptors = this.interceptors.reduce(function (array, interceptor) {
+        return [interceptor].concat(array);
+      }, []);
+    }
+
+    /**
+     * remove all interceptors
+     */
+
+  }, {
+    key: 'clearInterceptors',
+    value: function clearInterceptors() {
+      this.interceptors = [];
+
+      this.updateInterceptors();
+    }
+
+    /**
+     * @private
+     */
+
+  }, {
+    key: 'interceptorWrapper',
+    value: function interceptorWrapper(fetch) {
+      for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        args[_key2 - 1] = arguments[_key2];
+      }
+
+      var promise = Promise.resolve(args);
+
+      this.reversedInterceptors.forEach(function (_ref) {
+        var request = _ref.request,
+            requestError = _ref.requestError;
+
+        if (request || requestError) {
+          promise = promise.then(function () {
+            return request.apply(undefined, args);
+          }, requestError);
+        }
+      });
+
+      promise = promise.then(function () {
+        return fetch.apply(undefined, args);
+      });
+
+      this.reversedInterceptors.forEach(function (_ref2) {
+        var response = _ref2.response,
+            responseError = _ref2.responseError;
+
+        if (response || responseError) {
+          promise = promise.then(response, responseError);
+        }
+      });
+
+      return promise;
+    }
+  }]);
+
+  return FetchInterceptor;
+}();
+
+/**
+ * GraphQL client with fetch api.
+ * @extends FetchInterceptor
+ */
+
+
+var FetchQL = function (_FetchInterceptor) {
+  _inherits(FetchQL, _FetchInterceptor);
+
+  /**
+   * Create a FetchQL instance.
+   * @param {Object} options
+   * @param {String} options.url - the server address of GraphQL
+   * @param {(Object|Object[])=} options.interceptors
+   * @param {{}=} options.headers - request headers
+   * @param {FetchQL~requestQueueChanged=} options.onStart - callback function of a new request queue
+   * @param {FetchQL~requestQueueChanged=} options.onEnd - callback function of request queue finished
+   * @param {Boolean=} options.omitEmptyVariables - remove null props(null or '') from the variables
+   * @param {Object=} options.requestOptions - addition options to fetch request(refer to fetch api)
+   */
+  function FetchQL(_ref3) {
+    var url = _ref3.url,
+        interceptors = _ref3.interceptors,
+        headers = _ref3.headers,
+        onStart = _ref3.onStart,
+        onEnd = _ref3.onEnd,
+        _ref3$omitEmptyVariab = _ref3.omitEmptyVariables,
+        omitEmptyVariables = _ref3$omitEmptyVariab === undefined ? false : _ref3$omitEmptyVariab,
+        _ref3$requestOptions = _ref3.requestOptions,
+        requestOptions = _ref3$requestOptions === undefined ? {} : _ref3$requestOptions;
+
+    _classCallCheck(this, FetchQL);
+
+    var _this4 = _possibleConstructorReturn(this, (FetchQL.__proto__ || Object.getPrototypeOf(FetchQL)).call(this));
+
+    _this4.requestObject = Object.assign({}, {
+      method: 'POST',
+      headers: Object.assign({}, {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }, headers),
+      credentials: 'same-origin'
+    }, requestOptions);
+
+    _this4.url = url;
+
+    _this4.omitEmptyVariables = omitEmptyVariables;
+
+    // marker for request queue
+    _this4.requestQueueLength = 0;
+
+    // using for caching enums' type
+    _this4.EnumMap = {};
+
+    _this4.callbacks = {
+      onStart: onStart,
+      onEnd: onEnd
+    };
+
+    _this4.addInterceptors(interceptors);
+    return _this4;
+  }
+
+  /**
+   * operate a query
+   * @param {Object} options
+   * @param {String} options.operationName
+   * @param {String} options.query
+   * @param {Object=} options.variables
+   * @param {Object=} options.opts - addition options(will not be passed to server)
+   * @param {Boolean=} options.opts.omitEmptyVariables - remove null props(null or '') from the variables
+   * @param {Object=} options.requestOptions - addition options to fetch request(refer to fetch api)
+   * @returns {Promise}
+   * @memberOf FetchQL
+   */
+
+
+  _createClass(FetchQL, [{
+    key: 'query',
+    value: function query(_ref4) {
+      var _this5 = this;
+
+      var operationName = _ref4.operationName,
+          _query = _ref4.query,
+          variables = _ref4.variables,
+          _ref4$opts = _ref4.opts,
+          opts = _ref4$opts === undefined ? {} : _ref4$opts,
+          _ref4$requestOptions = _ref4.requestOptions,
+          requestOptions = _ref4$requestOptions === undefined ? {} : _ref4$requestOptions;
+
+      var options = Object.assign({}, this.requestObject, requestOptions);
+      var vars = void 0;
+      if (this.omitEmptyVariables || opts.omitEmptyVariables) {
+        vars = this.doOmitEmptyVariables(variables);
+      } else {
+        vars = variables;
+      }
+      var body = {
+        operationName: operationName,
+        query: _query,
+        variables: vars
+      };
+      options.body = JSON.stringify(body);
+
+      this.onStart();
+
+      return this.fetch(this.url, options).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        }
+        // return an custom error stack if request error
+        return {
+          errors: [{
+            message: res.statusText,
+            stack: res
+          }]
+        };
+      }).then(function (_ref5) {
+        var data = _ref5.data,
+            errors = _ref5.errors;
+        return new Promise(function (resolve, reject) {
+          _this5.onEnd();
+
+          // if data in response is 'null'
+          if (!data) {
+            return reject(errors || [{}]);
+          }
+          // if all properties of data is 'null'
+          var allDataKeyEmpty = Object.keys(data).every(function (key) {
+            return !data[key];
+          });
+          if (allDataKeyEmpty) {
+            return reject(errors);
+          }
+          return resolve({ data: data, errors: errors });
+        });
+      });
+    }
+
+    /**
+     * get current server address
+     * @returns {String}
+     * @memberOf FetchQL
+     */
+
+  }, {
+    key: 'getUrl',
+    value: function getUrl() {
+      return this.url;
+    }
+
+    /**
+     * setting a new server address
+     * @param {String} url
+     * @memberOf FetchQL
+     */
+
+  }, {
+    key: 'setUrl',
+    value: function setUrl(url) {
+      this.url = url;
+    }
+
+    /**
+     * get information of enum type
+     * @param {String[]} EnumNameList - array of enums' name
+     * @returns {Promise}
+     * @memberOf FetchQL
+     */
+
+  }, {
+    key: 'getEnumTypes',
+    value: function getEnumTypes(EnumNameList) {
+      var _this6 = this;
+
+      var fullData = {};
+
+      // check cache status
+      var unCachedEnumList = EnumNameList.filter(function (element) {
+        if (_this6.EnumMap[element]) {
+          // enum has been cached
+          fullData[element] = _this6.EnumMap[element];
+          return false;
+        }
+        return true;
+      });
+
+      // immediately return the data if all enums have been cached
+      if (!unCachedEnumList.length) {
+        return new Promise(function (resolve) {
+          resolve({ data: fullData });
+        });
+      }
+
+      // build query string for uncached enums
+      var EnumTypeQuery = unCachedEnumList.map(function (type) {
+        return type + ': __type(name: "' + type + '") {\n        ...EnumFragment\n      }';
+      });
+
+      var query = '\n      query {\n        ' + EnumTypeQuery.join('\n') + '\n      }\n      \n      fragment EnumFragment on __Type {\n        kind\n        description\n        enumValues {\n          name\n          description\n        }\n      }';
+
+      var options = Object.assign({}, this.requestObject);
+      options.body = JSON.stringify({ query: query });
+
+      this.onStart();
+
+      return this.fetch(this.url, options).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        }
+        // return an custom error stack if request error
+        return {
+          errors: [{
+            message: res.statusText,
+            stack: res
+          }]
+        };
+      }).then(function (_ref6) {
+        var data = _ref6.data,
+            errors = _ref6.errors;
+        return new Promise(function (resolve, reject) {
+          _this6.onEnd();
+
+          // if data in response is 'null' and have any errors
+          if (!data) {
+            return reject(errors || [{ message: 'Do not get any data.' }]);
+          }
+          // if all properties of data is 'null'
+          var allDataKeyEmpty = Object.keys(data).every(function (key) {
+            return !data[key];
+          });
+          if (allDataKeyEmpty && errors && errors.length) {
+            return reject(errors);
+          }
+          // merge enums' data
+          var passData = Object.assign(fullData, data);
+          // cache new enums' data
+          Object.keys(data).map(function (key) {
+            _this6.EnumMap[key] = data[key];
+            return key;
+          });
+          return resolve({ data: passData, errors: errors });
+        });
+      });
+    }
+
+    /**
+     * calling on a request starting
+     * if the request belong to a new queue, call the 'onStart' method
+     */
+
+  }, {
+    key: 'onStart',
+    value: function onStart() {
+      this.requestQueueLength++;
+      if (this.requestQueueLength > 1 || !this.callbacks.onStart) {
+        return;
+      }
+      this.callbacks.onStart(this.requestQueueLength);
+    }
+
+    /**
+     * calling on a request ending
+     * if current queue finished, calling the 'onEnd' method
+     */
+
+  }, {
+    key: 'onEnd',
+    value: function onEnd() {
+      this.requestQueueLength--;
+      if (this.requestQueueLength || !this.callbacks.onEnd) {
+        return;
+      }
+      this.callbacks.onEnd(this.requestQueueLength);
+    }
+
+    /**
+     * Callback of requests queue changes.(e.g. new queue or queue finished)
+     * @callback FetchQL~requestQueueChanged
+     * @param {number} queueLength - length of current request queue
+     */
+
+    /**
+     * remove empty props(null or '') from object
+     * @param {Object} input
+     * @returns {Object}
+     * @memberOf FetchQL
+     * @private
+     */
+
+  }, {
+    key: 'doOmitEmptyVariables',
+    value: function doOmitEmptyVariables(input) {
+      var _this7 = this;
+
+      var nonEmptyObj = {};
+      Object.keys(input).map(function (key) {
+        var value = input[key];
+        if (typeof value === 'string' && value.length === 0 || value === null || value === undefined) {
+          return key;
+        } else if (value instanceof Object) {
+          nonEmptyObj[key] = _this7.doOmitEmptyVariables(value);
+        } else {
+          nonEmptyObj[key] = value;
+        }
+        return key;
+      });
+      return nonEmptyObj;
+    }
+  }]);
+
+  return FetchQL;
+}(FetchInterceptor);const USER_STORAGE_KEY = 'user';
+const DISPLAYNAME_STORAGE_KEY = 'displayname';
+const DLIVE_BACKEND_URL = 'https://graphigo.prd.dlive.tv/';
+const UPDATE_USER_INFO_MESSAGE = 'UPDATE_USER_INFO';const DLIVE_GET_USER_QUERY = `
+query LivestreamPage($displayname: String!, $first: Int, $after: String) {
+  userByDisplayName (displayname: $displayname) {
+    displayname
+    avatar
+    id
+    username
+    livestream {
+      id
+      permlink
+    }
+    
+    following (
+      sortedBy: AZ 
+      first: $first,
+      after: $after
+    ) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      list {
+        avatar
+        displayname
+        partnerStatus
+        id
+        username
+        displayname
+        livestream {
+          id
+          permlink
+          title
+          thumbnailUrl
+          watchingCount
+          category {
+            title
+          }
+        }
+        followers {
+          totalCount
+        }
+      }
+    }
+  }
+}`;
+
+const DLIVE_GET_USER_FOLLOWING_NEXT_PAGE = `
+query LivestreamPage($displayname: String!, $first: Int, $after: String) {
+  userByDisplayName (displayname: $displayname) {
+    displayname
+    following (
+      sortedBy: AZ 
+      first: $first,
+      after: $after
+    ) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      list {
+        avatar
+        displayname
+        partnerStatus
+        id
+        username
+        displayname
+        livestream {
+          id
+          permlink
+          title
+          thumbnailUrl
+          watchingCount
+          category {
+            title
+          }
+        }
+        followers {
+          totalCount
+        }
+      }
+    }
+  }
+}`;
+const FOLLOWING_PAGE_SIZE = 40;
+
+function buildDliveQuery () {
+  return new FetchQL ({url: DLIVE_BACKEND_URL });
+}
+
+function extractFollowing (response) {
+  let user = JSON.parse (localStorage.getItem (USER_STORAGE_KEY));
+  if (!user) { return Promise.reject (user); }
+  let followingInfo = response.data.userByDisplayName.following;
+  if (!followingInfo) { return Promise.reject ('Following info invalid'); }
+  user.following.list = user.following.list.concat (followingInfo.list);
+  localStorage.setItem (USER_STORAGE_KEY, JSON.stringify (user));
+  return Promise.resolve (response);
+}
+
+function fetchAllFollowing (displayname, first, after) {
+  return buildDliveQuery ().query ({
+    operationName: 'LivestreamPage',
+    variables: {
+      displayname: displayname,
+      first: first,
+      after: after
+    },
+    query: DLIVE_GET_USER_FOLLOWING_NEXT_PAGE
+  }).then (extractFollowing).then (maybeFetchAllFollowing);
+}
+
+// recursively traverse the following results until the end is reached
+function maybeFetchAllFollowing (response) {
+  let user = response.data.userByDisplayName;
+  if (!user) { return Promise.reject ('Response invalid'); }
+  // end of recursion reached
+  if (!user.following.pageInfo.hasNextPage) { return Promise.resolve(); } 
+  return fetchAllFollowing (user.displayname, FOLLOWING_PAGE_SIZE, user.following.pageInfo.endCursor);
+}
+
+function updateUserInfo (respond) {
+  let displayname = localStorage.getItem(DISPLAYNAME_STORAGE_KEY);
+  if (!displayname) { respond ('No displayname in storage.'); return; }
+  
+  return new Promise ((resolve, reject) => {
+    buildDliveQuery ().query ({
+      operationName: 'LivestreamPage',
+      variables: {
+        displayname: displayname,
+        first: FOLLOWING_PAGE_SIZE
+      },
+      query: DLIVE_GET_USER_QUERY
+    }).then((response) => {
+      let user = response.data.userByDisplayName;
+      if (!user) { return reject ('User could not be fetched'); }
+      localStorage.setItem (USER_STORAGE_KEY, JSON.stringify (user));
+      maybeFetchAllFollowing (response).finally (() => {
+        resolve (localStorage.getItem (USER_STORAGE_KEY));
+      });
+    });
+  }).finally (respond);
+}
+
+// https://developer.chrome.com/extensions/messaging#simple
+// return true allows you to use asynchronicity to respond to the message;
+chrome.runtime.onMessage.addListener(function(message, sender, respond) {
+  switch (message.kind) {
+    case UPDATE_USER_INFO_MESSAGE: updateUserInfo(respond); break;
+    default: return false;
+  }
+
+  return true;
+});}());

@@ -1,6 +1,7 @@
 import m from '../../node_modules/mithril/mithril.mjs';
 import * as Constants from '../constants.js';
 import Component from './component.js';
+import './popup-streams.css';
 
 class PopupStreams extends Component {
   emptyState () {
@@ -9,8 +10,8 @@ class PopupStreams extends Component {
         m ('div', {class: 'empty-icon'}, [
           m ('i', {class: 'icon icon-bookmark'})
         ]),
-        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage('streams_empty_title')),
-        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage('streams_empty_subtitle'))
+        m ('p', {class: 'empty-title h5'}, chrome.i18n.getMessage ('streams_empty_title')),
+        m ('p', {class: 'empty-subtitle'}, chrome.i18n.getMessage ('streams_empty_subtitle'))
       ])
     ];
   }
@@ -22,7 +23,7 @@ class PopupStreams extends Component {
   followingList (following) {
     return following.map ((user) => {
       return m ('a', {
-        href: this.computeStreamLink(user), 
+        href: this.computeStreamLink (user), 
         target:'_blank', 
         rel:'noopener noreferrer'
       }, [
@@ -52,12 +53,12 @@ class PopupStreams extends Component {
   }
 
   getFollowingWithLivestreams () {
-    let user = localStorage.getItem(Constants.USER_STORAGE_KEY);
+    let user = localStorage.getItem (Constants.USER_STORAGE_KEY);
     if (!user) { return []; }
     user = JSON.parse (user);
     return user.following.list.filter ((following) => {
       return following.livestream !== null;
-    }).map((following) => {
+    }).map ((following) => {
       return following;
     });
   }

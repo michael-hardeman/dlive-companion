@@ -1,0 +1,63 @@
+
+popup-heading {
+  line-height: initial;
+  margin-bottom: .4rem;
+}
+
+popup-heading .logo {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+}
+
+popup-heading .title-container {
+  justify-content: center;
+}
+
+user-dropdown .icon {
+  color: #C4C4C4;
+}
+
+user-dropdown .menu {
+  background: #272727;
+  border: 1px solid #1C1C1C;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+  box-sizing: border-box;
+  overflow-y: visible !important;
+  max-height: initial !important;
+  padding: 0;
+}
+user-dropdown .menu .menu-item { 
+  padding-top: 0.05rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.05rem;
+  margin: 0 !important;
+}
+user-dropdown .menu .menu-item:first-of-type { 
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+}
+user-dropdown .menu .menu-item:last-of-type { 
+  padding-bottom: 0.1rem;
+}
+
+user-dropdown .menu .displayname { 
+  background: #1C1C1C;
+  font-weight: bold;
+  line-height: initial;
+}
+
+user-dropdown .menu .menu-item>a:link     { background: #272727; color: #FFFFFF; font-weight: bold; text-decoration: none; }
+user-dropdown .menu .menu-item>a:visited  { background: #272727; color: #FFFFFF; font-weight: bold; text-decoration: none; }
+user-dropdown .menu .menu-item>a:hover    { background: #4C4C4C; color: #FFFFFF; font-weight: bold; text-decoration: none; }
+user-dropdown .menu .menu-item>a:active   { background: #272727; color: #FFFFFF; font-weight: bold; text-decoration: none; }
+
+popup-heading .title {
+  font-size: 1rem;
+  color: #FFD300;
+}
+
+popup-heading .heading {
+  overflow-y: hidden;
+}

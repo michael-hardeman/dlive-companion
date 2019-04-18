@@ -84,7 +84,7 @@ query LivestreamPage($displayname: String!, $first: Int, $after: String) {
     }
   }
 }`;
-const FOLLOWING_PAGE_SIZE = 20;
+const FOLLOWING_PAGE_SIZE = 40;
 
 function buildDliveQuery () {
   return new FetchQL ({url: Constants.DLIVE_BACKEND_URL });
@@ -112,10 +112,10 @@ function fetchAllFollowing (displayname, first, after) {
   }).then (extractFollowing).then (maybeFetchAllFollowing);
 }
 
-// recursively traverse the following results until the end is
+// recursively traverse the following results until the end is reached
 function maybeFetchAllFollowing (response) {
   let user = response.data.userByDisplayName;
-  if (!user) { return Promise.reject('Response invalid'); }
+  if (!user) { return Promise.reject ('Response invalid'); }
   // end of recursion reached
   if (!user.following.pageInfo.hasNextPage) { return Promise.resolve(); } 
   return fetchAllFollowing (user.displayname, FOLLOWING_PAGE_SIZE, user.following.pageInfo.endCursor);
@@ -123,9 +123,9 @@ function maybeFetchAllFollowing (response) {
 
 function updateUserInfo (respond) {
   let displayname = localStorage.getItem(Constants.DISPLAYNAME_STORAGE_KEY);
-  if (!displayname) { respond('No displayname in storage.'); return; }
+  if (!displayname) { respond ('No displayname in storage.'); return; }
   
-  return new Promise((resolve, reject) => {
+  return new Promise ((resolve, reject) => {
     buildDliveQuery ().query ({
       operationName: 'LivestreamPage',
       variables: {
@@ -137,23 +137,18 @@ function updateUserInfo (respond) {
       let user = response.data.userByDisplayName;
       if (!user) { return reject ('User could not be fetched'); }
       localStorage.setItem (Constants.USER_STORAGE_KEY, JSON.stringify (user));
-      maybeFetchAllFollowing(response).finally(() => {
+      maybeFetchAllFollowing (response).finally (() => {
         resolve (localStorage.getItem (Constants.USER_STORAGE_KEY));
       });
     });
-  }).finally(respond);
-}
-
-function updateLiveStrems (respond) {
-  respond('unimplemented feature');
+  }).finally (respond);
 }
 
 // https://developer.chrome.com/extensions/messaging#simple
 // return true allows you to use asynchronicity to respond to the message;
 chrome.runtime.onMessage.addListener(function(message, sender, respond) {
   switch (message.kind) {
-    case Constants.MESSAGE_KIND.UPDATE_USER_INFO: updateUserInfo(respond); break;
-    case Constants.MESSAGE_KIND.UPDATE_LIVE_STREAMS: updateLiveStrems(respond); break;
+    case Constants.UPDATE_USER_INFO_MESSAGE: updateUserInfo(respond); break;
     default: return false;
   }
 
