@@ -5,7 +5,7 @@ import './popup-heading.css';
 
 let user;
 
-class PopupHeading extends Component {
+export default class PopupHeading extends Component {
 
   constructor () {
     super ();
@@ -84,5 +84,3 @@ class PopupHeading extends Component {
     ]);
   }
 }
-
-export default PopupHeading;

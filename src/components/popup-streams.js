@@ -3,7 +3,7 @@ import * as Constants from '../constants.js';
 import Component from './component.js';
 import './popup-streams.css';
 
-class PopupStreams extends Component {
+export default class PopupStreams extends Component {
   emptyState () {
     return [
       m ('div', {class: 'relative empty'}, [
@@ -69,5 +69,3 @@ class PopupStreams extends Component {
     ]);
   }
 }
-
-export default PopupStreams;

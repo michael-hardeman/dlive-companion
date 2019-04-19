@@ -32,7 +32,7 @@ let first = 10;
 let after = '';
 let searchData = null;
 
-class PopupLogin extends Component {
+export default class PopupLogin extends Component {
 
   oncreate(vnode) {
     if (!vnode) { return; }
@@ -106,5 +106,3 @@ class PopupLogin extends Component {
     ]);
   }
 }
-
-export default PopupLogin;

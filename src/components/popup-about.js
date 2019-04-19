@@ -22,7 +22,7 @@ const DONATION_ADDRESSES = [
     '/images/about/zec.png')
 ];
 
-class PopupAbout extends Component {
+export default class PopupAbout extends Component {
   
   donationAddressList (addresses) {
     return addresses.map ((item, index) => {
@@ -58,5 +58,3 @@ class PopupAbout extends Component {
     ]);
   }
 }
-
-export default PopupAbout;

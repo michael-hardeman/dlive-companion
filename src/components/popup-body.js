@@ -7,7 +7,7 @@ import PopupAbout from './popup-about.js';
 
 const ROUTE_DOM_ID = 'routes';
 
-class PopupBody extends Component {
+export default class PopupBody extends Component {
   computeDefaultRoute () {
     if (localStorage.getItem (Constants.DISPLAYNAME_STORAGE_KEY)) {
       return Constants.STREAMS_ROUTE;
@@ -30,5 +30,3 @@ class PopupBody extends Component {
     ]);
   }
 }
-
-export default PopupBody;

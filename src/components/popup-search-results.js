@@ -6,7 +6,7 @@ import './popup-search-results.css';
 
 let users = [];
 
-class PopupSearchResults extends Component {
+export default class PopupSearchResults extends Component {
 
   constructor (response) {
     super ();
@@ -69,5 +69,3 @@ class PopupSearchResults extends Component {
     ]);
   }
 }
-
-export default PopupSearchResults;

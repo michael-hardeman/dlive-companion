@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener ((message) => {
   }
 });
 
-class PopupMain extends Component {
+export default class PopupMain extends Component {
   constructor () {
     super ();
     chrome.runtime.sendMessage (new Messages.UpdateUserInfo ());
@@ -33,5 +33,3 @@ class PopupMain extends Component {
     ]);
   }
 }
-
-export default PopupMain;
