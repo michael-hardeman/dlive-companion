@@ -14,6 +14,7 @@ class PopupHeading extends Component {
 
   logout () {
     localStorage.clear ();
+    chrome.browserAction.setBadgeText({text: ''});
     if (Constants.LOGIN_ROUTE === m.route.get ()) { return; }
   }
 
@@ -46,8 +47,7 @@ class PopupHeading extends Component {
             m ('a', {
               class: 'relative block',
               href: Constants.ABOUT_ROUTE, 
-              oncreate: m.route.link, 
-              onupdate: m.route.link
+              oncreate: m.route.link
             }, 
             chrome.i18n.getMessage ('about'))
           ]),
@@ -58,8 +58,7 @@ class PopupHeading extends Component {
             m ('a', {
               class: 'relative block',
               href: Constants.LOGIN_ROUTE, 
-              oncreate: m.route.link,
-              onupdate: m.route.link
+              oncreate: m.route.link
             }, 
             chrome.i18n.getMessage ('logout'))
           ])

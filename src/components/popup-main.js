@@ -6,19 +6,24 @@ import PopupBody from './popup-body.js';
 import * as Messages from '../models/messages.js';
 import './popup-main.css';
 
+chrome.runtime.onMessage.addListener ((message) => {
+  switch (message.kind) {
+    case Constants.USER_INFO_UPDATED_MESSAGE: 
+      // TODO: figure out how to prevent this from
+      // affecting interactable UI components like the user-dropdown
+      // or about page accordions.
+      if (Constants.STREAMS_ROUTE === m.route.get ()) { m.redraw (); }
+      break;
+    default:
+      m.route.set (Constants.LOGIN_ROUTE);
+      throw new Error ('Unknown Message: ' + message.kind);
+  }
+});
+
 class PopupMain extends Component {
   constructor () {
     super ();
     chrome.runtime.sendMessage (new Messages.UpdateUserInfo ());
-
-    chrome.runtime.onMessage.addListener ((message) => {
-      switch (message.kind) {
-        case Constants.USER_INFO_UPDATED_MESSAGE: return m.redraw ();
-        default: 
-          m.route.set (Constants.LOGIN_ROUTE);
-          throw new Error ('Unknown Message: ' + message.kind);
-      }
-    });
   }
 
   view () {

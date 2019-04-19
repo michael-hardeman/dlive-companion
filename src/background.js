@@ -165,12 +165,29 @@ function maybeUpdateUserInfo (displayname) {
   });
 }
 
-function sendMessageUserUpdated () { chrome.runtime.sendMessage (new Messages.UserInfoUpdated ()); }
+function countStreams () {
+  let user = JSON.parse (localStorage.getItem (Constants.USER_STORAGE_KEY));
+  if (!user) { return 0; }
+  return user.following.list.reduce ((count, following) => {
+    return following.livestream ? ++count : count;
+  }, 0);
+}
+
+function computeBadgeText () {
+  let streamCount = countStreams ();
+  if (!streamCount) { return ''; }
+  return streamCount > 99 ? '99+' : String (streamCount); 
+}
+
+function sendMessageUserUpdatedAndUpdateBadge () { 
+  chrome.runtime.sendMessage (new Messages.UserInfoUpdated ());
+  chrome.browserAction.setBadgeText({text: computeBadgeText ()});
+}
 function logAndIgnore (reason) { console.log (reason); }
 
 function onUpdateUserInfoMessage () {
   maybeUpdateUserInfo (localStorage.getItem (Constants.DISPLAYNAME_STORAGE_KEY))
-    .then (sendMessageUserUpdated)
+    .then (sendMessageUserUpdatedAndUpdateBadge)
     .catch (logAndIgnore);
 }
 
